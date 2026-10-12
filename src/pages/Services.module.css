@@ -1,0 +1,408 @@
+.page {
+  padding-top: var(--header-h);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding-top: var(--header-h-sm);
+  }
+}
+
+/* ============================================================= HERO ===== */
+
+.hero {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 7rem);
+  overflow: hidden;
+  /* Fallback surface in case the ServicesHeroVideo wrapper is slow to layer in. */
+  background: linear-gradient(180deg, #e6f4ff 0%, #ffffff 100%);
+  min-height: clamp(420px, 60vh, 620px);
+  isolation: isolate;
+}
+
+/* Content column sits above the video + readability layers. */
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.heroTitle {
+  position: relative;
+  margin-top: 1.25rem;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  color: var(--mk-navy);
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  max-width: 18ch;
+}
+
+.heroLede {
+  position: relative;
+  margin-top: 1.5rem;
+  max-width: 32rem;
+  color: var(--mk-navy);
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  line-height: 1.55;
+}
+
+/* Stats row — compact chips, honest facts only */
+
+.statRow {
+  position: relative;
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-width: 44rem;
+}
+
+.statChip {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  box-shadow: 0 8px 20px -16px rgba(16, 28, 46, 0.3);
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  color: var(--mk-navy);
+  line-height: 1;
+}
+
+.statLabel {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mk-slate);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .statRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================= GRID ===== */
+
+.gridSection {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  background:
+    linear-gradient(180deg, #ffffff 0%, var(--mk-sky-soft) 100%);
+}
+
+.gridHead {
+  max-width: 44rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.gridTitle {
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--mk-navy);
+}
+
+/* Bento grid — 6-col at desktop, cards span 2 or 3 columns.
+   Mobile collapses to a single column. */
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.3rem);
+}
+
+.card {
+  grid-column: span 2;
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--mk-white);
+  border: 1px solid var(--divider);
+  box-shadow: 0 1px 2px rgba(16, 28, 46, 0.04);
+  overflow: hidden;
+  transition:
+    transform var(--dur-md) var(--ease-out),
+    box-shadow var(--dur-md) var(--ease-out),
+    border-color var(--dur-md) var(--ease-out);
+  isolation: isolate;
+}
+
+.card::after {
+  /* Subtle corner accent that keeps the card from feeling flat. */
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(225deg, var(--card-accent, transparent) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.75;
+  z-index: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 40px -24px rgba(16, 28, 46, 0.25);
+  border-color: var(--divider-strong);
+}
+
+/* Make the two linked services (Social, Performance) feel like the headline
+   cards — spanning 3 columns each on the first row. */
+.card:nth-child(1),
+.card:nth-child(2) {
+  grid-column: span 3;
+}
+
+/* Decorative wash — colored sheet on hover using the card's accent. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, var(--card-accent, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-md) var(--ease-out);
+  pointer-events: none;
+}
+
+.card:hover::before {
+  opacity: 0.9;
+}
+
+.cardLink {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.4rem, 2.2vw, 1.9rem);
+  min-height: 100%;
+  color: var(--mk-navy);
+  text-decoration: none;
+}
+
+.cardLink[data-static="true"] {
+  cursor: default;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 169, 224, 0.1);
+  color: var(--mk-blue);
+}
+
+.accentBlue {
+  --card-accent: rgba(11, 169, 224, 0.14);
+}
+
+.accentOrange {
+  --card-accent: rgba(247, 71, 36, 0.12);
+}
+
+.accentNavy {
+  --card-accent: rgba(16, 28, 46, 0.08);
+}
+
+.accentOrange .cardIcon {
+  background: rgba(247, 71, 36, 0.12);
+  color: var(--mk-orange);
+}
+
+.accentNavy .cardIcon {
+  background: rgba(16, 28, 46, 0.1);
+  color: var(--mk-navy);
+}
+
+.cardIndex {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--mk-slate);
+  font-weight: 600;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.2rem, 1.75vw, 1.55rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--mk-navy);
+  margin: 0;
+}
+
+.cardSummary {
+  margin: 0;
+  color: var(--mk-slate);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.cardOutcomes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+
+.cardOutcome {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(16, 28, 46, 0.05);
+  color: var(--mk-navy);
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.accentBlue .cardOutcome {
+  background: rgba(11, 169, 224, 0.12);
+  color: var(--mk-blue-700);
+}
+
+.accentOrange .cardOutcome {
+  background: rgba(247, 71, 36, 0.1);
+  color: var(--mk-orange-700);
+}
+
+.cardFoot {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cardCta {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mk-navy);
+}
+
+.cardArrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mk-navy);
+  color: var(--mk-white);
+  transition: transform var(--dur-sm) var(--ease-out), background var(--dur-sm) var(--ease-out);
+}
+
+.card:hover .cardArrow {
+  background: var(--mk-orange);
+  transform: rotate(-45deg);
+}
+
+/* Responsive — tablet collapses to 2-across, mobile to 1-across. */
+
+@media (max-width: 980px) {
+  .serviceGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .card,
+  .card:nth-child(1),
+  .card:nth-child(2) {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .card:nth-child(1),
+  .card:nth-child(2) {
+    grid-column: span 1;
+  }
+}
+
+/* ============================================================ CLOSING === */
+
+.closing {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: linear-gradient(180deg, #ffffff 0%, var(--mk-sky-soft) 100%);
+}
+
+.closingCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  background: var(--mk-white);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.closingBody {
+  min-width: 0;
+}
+
+.closingTitle {
+  margin-top: 0.6rem;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  color: var(--mk-navy);
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+.closingCopy {
+  margin-top: 1rem;
+  color: var(--mk-slate);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 36rem;
+}
+
+.closingCta {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .closingCard {
+    grid-template-columns: 1fr;
+  }
+}

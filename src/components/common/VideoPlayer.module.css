@@ -1,0 +1,127 @@
+.player {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--mk-dark);
+  box-shadow: var(--shadow-lg);
+  margin: 0;
+}
+
+/* Inner frame — holds the video at full frame (no crop zoom). */
+.frame {
+  position: absolute;
+  inset: 0;
+}
+
+/* Minkup brand plate — opt-in via `maskWatermark` prop. Positioned over the
+   bottom-right source watermark; reads as an intentional creative sign-off. */
+.brandMark {
+  position: absolute;
+  right: clamp(1rem, 2.5vw, 1.75rem);
+  bottom: clamp(1rem, 2.5vw, 1.75rem);
+  width: clamp(80px, 8vw, 110px);
+  height: clamp(80px, 8vw, 110px);
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.brandMark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8%;
+  display: block;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background: var(--mk-dark);
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.95;
+}
+
+.controls {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity var(--dur-sm) var(--ease-out);
+  z-index: 3;
+}
+
+.player:hover .controls,
+.player:focus-within .controls {
+  opacity: 1;
+}
+
+.playBtn,
+.muteBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mk-navy);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  transition: transform var(--dur-sm) var(--ease-out), background var(--dur-sm) var(--ease-out);
+}
+
+.playBtn:hover,
+.muteBtn:hover {
+  transform: scale(1.05);
+  background: var(--mk-white);
+}
+
+.muteBtn {
+  width: 44px;
+  height: 44px;
+}
+
+.caption {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  color: var(--mk-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  z-index: 3;
+}
+
+.caption strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+
+.caption span {
+  opacity: 0.8;
+}

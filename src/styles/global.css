@@ -1,0 +1,278 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  color: var(--fg-primary);
+  background: var(--bg-page);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 15% -10%, rgba(185, 231, 255, 0.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 110% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+    linear-gradient(180deg, #eaf6ff 0%, #f6fbff 42%, #ffffff 100%);
+  background-attachment: fixed;
+  color: var(--fg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--fg-primary);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-mega);
+  font-weight: 900;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+p {
+  margin: 0;
+  line-height: var(--lh-relaxed);
+  color: var(--fg-secondary);
+  font-size: var(--fs-body);
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-sm) var(--ease-out);
+}
+
+a:hover {
+  color: var(--mk-blue);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(11, 169, 224, 0.55);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(247, 71, 36, 0.25);
+  color: var(--mk-navy);
+}
+
+/* -------- Utility layout -------- */
+
+.container,
+.container-xl {
+  width: 100%;
+  max-width: var(--w-xl);
+  padding-inline: var(--pad-x);
+  margin-inline: auto;
+}
+
+/* Legacy alias: all content now shares the same 1440px container so section
+   headings, descriptions, grids, and CTAs align on the same vertical rules. */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--mk-slate);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.1rem;
+  height: 1px;
+  background: var(--mk-blue);
+}
+
+.eyebrow--contrast {
+  color: var(--mk-blue-300);
+}
+
+.eyebrow--contrast::before {
+  background: var(--mk-blue-300);
+}
+
+.text-serif {
+  font-family: var(--font-display);
+}
+
+.text-italic {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.text-blue {
+  color: var(--mk-blue);
+}
+
+.text-orange {
+  color: var(--mk-orange);
+}
+
+.text-navy {
+  color: var(--mk-navy);
+}
+
+.text-slate {
+  color: var(--mk-slate);
+}
+
+/* -------- Section bones -------- */
+
+.section {
+  padding-block: clamp(4.5rem, 9vw, 8.5rem);
+  position: relative;
+}
+
+.section--tight {
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+}
+
+.section--contrast {
+  background: var(--mk-navy);
+  color: var(--fg-inverse);
+}
+
+.section--contrast p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.section--sky {
+  background: linear-gradient(180deg, #ecf7ff 0%, #ffffff 100%);
+}
+
+.divider {
+  height: 1px;
+  background: var(--divider);
+  width: 100%;
+}
+
+.divider--blue {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(11, 169, 224, 0.35) 15%,
+    rgba(11, 169, 224, 0.6) 50%,
+    rgba(11, 169, 224, 0.35) 85%,
+    transparent
+  );
+  height: 1px;
+}
+
+/* -------- Scroll-reveal baseline --------
+   Progressive enhancement: elements only hide once the JS hook flags the
+   document as reveal-ready. If the hook never runs, every [data-reveal]
+   stays visible — animation never masks a layout defect. */
+html[data-reveal-ready="true"] [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 550ms var(--ease-out),
+    transform 550ms var(--ease-out);
+  will-change: opacity, transform;
+}
+
+html[data-reveal-ready="true"] [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html[data-reveal-ready="true"] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

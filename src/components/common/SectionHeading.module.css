@@ -1,0 +1,45 @@
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 56rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.align-center {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--mk-blue);
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  letter-spacing: var(--ls-mega);
+  color: var(--mk-navy);
+  line-height: 0.98;
+}
+
+.description {
+  font-size: 1.12rem;
+  color: var(--mk-slate);
+  max-width: 42rem;
+  line-height: 1.6;
+}
+
+.contrast .title {
+  color: var(--mk-white);
+}
+
+.contrast .description {
+  color: rgba(255, 255, 255, 0.78);
+}

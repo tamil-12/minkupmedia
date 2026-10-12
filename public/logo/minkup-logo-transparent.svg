@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Minkup logo placeholder">
+  <defs>
+    <linearGradient id="arrow" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0BA9E0"/>
+      <stop offset="100%" stop-color="#F74724"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="112" height="112" rx="22" fill="#101C2E"/>
+  <path d="M22 86 L52 56 L68 72 L96 44" stroke="url(#arrow)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="96" cy="44" r="5" fill="#F74724"/>
+  <text x="60" y="106" fill="#DFF3FF" font-family="'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="4" text-anchor="middle">MINKUP</text>
+</svg>

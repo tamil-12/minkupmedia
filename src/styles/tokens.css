@@ -1,0 +1,135 @@
+:root {
+  /* ---------- Brand palette ---------- */
+  --mk-blue: #0ba9e0;
+  --mk-blue-700: #0a84b0;
+  --mk-blue-300: #7cd6f7;
+  --mk-orange: #f74724;
+  --mk-orange-700: #c33617;
+  --mk-orange-300: #ffa38e;
+  --mk-navy: #101c2e;
+  --mk-navy-700: #1b2a44;
+  --mk-ink: #2a3447;
+  --mk-slate: #53657b;
+  --mk-mist: #8798ab;
+  --mk-line: #c7d9e8;
+
+  /* ---------- Atmosphere ---------- */
+  --mk-white: #ffffff;
+  --mk-cream: #fbf7f1;
+  --mk-sky: #dff3ff;
+  --mk-sky-soft: #ecf7ff;
+  --mk-cyan: #b9e7ff;
+  --mk-cyan-deep: #9edcff;
+  --mk-dark: #0a1626;
+
+  /* ---------- Semantic ---------- */
+  --bg-page: var(--mk-sky-soft);
+  --bg-elevated: #ffffff;
+  --bg-contrast: var(--mk-navy);
+  --fg-primary: var(--mk-navy);
+  --fg-secondary: var(--mk-slate);
+  --fg-muted: var(--mk-mist);
+  --fg-inverse: #ffffff;
+  --accent: var(--mk-orange);
+  --accent-cool: var(--mk-blue);
+  --divider: rgba(16, 28, 46, 0.09);
+  --divider-strong: rgba(16, 28, 46, 0.18);
+
+  /* ---------- Typography ---------- */
+  /* Inter is the systemic face for navigation, service headings, paragraphs,
+     buttons, and labels at every weight (300–900). DM Serif Display is reserved
+     for selected editorial display headings. Instrument Serif remains for italic
+     editorial accents. */
+  --font-display: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-editorial: "DM Serif Display", "Instrument Serif", Georgia, serif;
+  --font-serif: "DM Serif Display", "Instrument Serif", Georgia, serif;
+  --font-serif-italic: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --fs-eyebrow: 0.72rem;
+  --fs-small: 0.84rem;
+  --fs-body: 1.02rem;
+  --fs-lede: 1.22rem;
+  --fs-h4: 1.4rem;
+  --fs-h3: 1.9rem;
+  --fs-h2: clamp(2rem, 3.6vw, 3.4rem);
+  --fs-h1: clamp(2.75rem, 6.4vw, 5.6rem);
+  --fs-mega: clamp(3.5rem, 10vw, 9rem);
+
+  --lh-tight: 0.98;
+  --lh-snug: 1.08;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  --ls-mega: -0.045em;
+  --ls-tight: -0.025em;
+  --ls-eyebrow: 0.26em;
+
+  /* ---------- Spacing scale ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.75rem;
+  --space-8: 3.5rem;
+  --space-9: 4.75rem;
+  --space-10: 6rem;
+  --space-11: 8rem;
+  --space-12: 10rem;
+
+  /* ---------- Container widths ---------- */
+  --w-xs: 42rem;
+  --w-sm: 56rem;
+  --w-md: 72rem;
+  --w-lg: 86rem;
+  --w-xl: 90rem; /* 1440px — maximum desktop content width */
+
+  /* ---------- Side padding (responsive gutter) ---------- */
+  /* Desktop 48px · tablet 32px · mobile 20px */
+  --pad-x: clamp(1.25rem, 3.5vw, 3rem);
+
+  /* ---------- Radius ---------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-sm: 0 1px 2px rgba(16, 28, 46, 0.06), 0 2px 6px rgba(16, 28, 46, 0.04);
+  --shadow-md: 0 10px 24px -14px rgba(11, 42, 68, 0.22), 0 4px 10px rgba(11, 42, 68, 0.06);
+  --shadow-lg: 0 32px 60px -28px rgba(11, 42, 68, 0.28), 0 10px 24px -14px rgba(11, 42, 68, 0.14);
+  --shadow-glow-blue: 0 0 0 1px rgba(11, 169, 224, 0.25), 0 20px 60px -20px rgba(11, 169, 224, 0.45);
+  --shadow-glow-orange: 0 0 0 1px rgba(247, 71, 36, 0.3), 0 24px 60px -20px rgba(247, 71, 36, 0.4);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in: cubic-bezier(0.6, 0, 0.9, 0.4);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-emphasize: cubic-bezier(0.2, 0.9, 0.1, 1.15);
+
+  --dur-xs: 120ms;
+  --dur-sm: 220ms;
+  --dur-md: 420ms;
+  --dur-lg: 680ms;
+  --dur-xl: 1200ms;
+
+  /* ---------- Header ---------- */
+  --header-h: 84px;
+  --header-h-sm: 68px;
+
+  /* ---------- Grid ---------- */
+  --grid-gutter: clamp(1rem, 2vw, 2rem);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-10: 4.5rem;
+    --space-11: 5.5rem;
+    --space-12: 7rem;
+  }
+}

@@ -1,0 +1,93 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #050a14;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+/* Video is shown full-frame — the Gemini watermark in the bottom-right of the
+   source is covered by .brandMark below. */
+.videoMask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #050a14;
+  display: block;
+}
+
+/* Black patch over the Gemini watermark. Video background is already dark —
+   a soft dark disc blends in and hides the sparkle without introducing a
+   visible brand plate. Sized to cover the sparkle with a feathered edge. */
+.brandMark {
+  position: absolute;
+  right: clamp(0.75rem, 2vw, 1.75rem);
+  bottom: clamp(3.5rem, 6vw, 5rem);
+  width: clamp(72px, 8vw, 108px);
+  height: clamp(72px, 8vw, 108px);
+  background: radial-gradient(
+    circle at 50% 50%,
+    #050a14 0%,
+    #050a14 55%,
+    rgba(5, 10, 20, 0.6) 78%,
+    rgba(5, 10, 20, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 4;
+}
+
+.brandMark img {
+  display: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  /* Three gradients:
+     1. radial centre vignette for cinematic feel
+     2. soft top/bottom darken
+     3. dark patch over the bottom-right corner — covers the Gemini watermark
+        in the source video. The video background is near-black so the patch
+        is invisible as a shape; it just reads as a darker vignette corner. */
+  background:
+    radial-gradient(
+      220px 220px at calc(100% - 70px) calc(100% - 90px),
+      #050a14 0%,
+      rgba(5, 10, 20, 0.85) 45%,
+      rgba(5, 10, 20, 0) 85%
+    ),
+    radial-gradient(1200px 800px at 50% 55%, transparent 20%, rgba(5, 10, 20, 0.45) 85%),
+    linear-gradient(180deg, rgba(5, 10, 20, 0.3), transparent 25%, transparent 75%, rgba(5, 10, 20, 0.4));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.corner {
+  position: absolute;
+  top: clamp(1.1rem, 3vw, 2rem);
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 3;
+}
+
+.brandTag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.18);
+}

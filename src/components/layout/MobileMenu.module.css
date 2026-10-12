@@ -1,0 +1,151 @@
+.wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(185, 231, 255, 0.9), transparent 60%),
+    radial-gradient(900px 500px at 0% 110%, rgba(255, 255, 255, 0.8), transparent 60%),
+    linear-gradient(180deg, #ecf7ff 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem clamp(1.25rem, 4vw, 2.5rem) 2rem;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.6rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--mk-navy);
+}
+
+.logoImg {
+  width: 140px;
+  height: 44px;
+  background-image: url("/logo/minkup-logo.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 170%;
+  mix-blend-mode: multiply;
+  display: inline-block;
+}
+
+.brandWord {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--mk-navy);
+}
+
+.closeBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mk-navy);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--divider);
+}
+
+.list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 2rem;
+}
+
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.1rem, 8vw, 3.4rem);
+  letter-spacing: -0.025em;
+  color: var(--mk-navy);
+  line-height: 1.02;
+  position: relative;
+  transition: color var(--dur-sm) var(--ease-out), transform var(--dur-md) var(--ease-out);
+}
+
+.linkIndex {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--mk-slate);
+  text-transform: uppercase;
+}
+
+.link.active .linkLabel {
+  color: var(--mk-blue);
+}
+
+.link:hover {
+  transform: translateX(6px);
+  color: var(--mk-blue);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--divider);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--mk-orange);
+  color: var(--mk-white);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 10px 24px -10px rgba(247, 71, 36, 0.7);
+}
+
+.cta:hover {
+  color: var(--mk-white);
+  background: var(--mk-orange-700);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  font-size: 0.84rem;
+  color: var(--mk-slate);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.socialLink {
+  padding-block: 0.2rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-sm) var(--ease-out), color var(--dur-sm) var(--ease-out);
+}
+
+.socialLink:hover {
+  color: var(--mk-blue);
+  border-color: var(--mk-blue);
+}
