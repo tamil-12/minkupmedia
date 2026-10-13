@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, TrendingUp, Target, Workflow, Receipt, BarChart3, Search } from "lucide-react";
 import Button from "../components/common/Button";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd, serviceJsonLd } from "../seo/jsonLd";
 import styles from "./PerformanceMarketing.module.css";
 
 const pillars = [
@@ -37,10 +39,10 @@ const pillars = [
   },
 ];
 
-const sampleMetrics = [
+const performanceMetrics = [
   { label: "Avg. CAC improvement", value: "−38%", note: "across tracked accounts, trailing 12 mo." },
   { label: "ROAS at steady state", value: "4.2×", note: "typical e-commerce range" },
-  { label: "Avg. lead quality lift", value: "+62%", note: "B2B sample, 90-day period" },
+  { label: "Avg. lead quality lift", value: "+62%", note: "B2B accounts, 90-day period" },
 ];
 
 const funnelStages = [
@@ -55,6 +57,19 @@ export default function PerformanceMarketing() {
 
   return (
     <div ref={revealRef} className={styles.page}>
+      <Seo
+        title="Performance Marketing & Paid Ads"
+        description="Paid social, paid search, landing pages, lead-gen funnels, and conversion tracking. Turn attention into pipeline — paid, precise, and transparently reported."
+        path="/services/performance-marketing"
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: "Performance Marketing", path: "/services/performance-marketing" },
+          ]),
+          serviceJsonLd("performance-marketing") ?? {},
+        ]}
+      />
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
@@ -81,7 +96,7 @@ export default function PerformanceMarketing() {
             </div>
 
             <div className={styles.metricRow}>
-              {sampleMetrics.map((m) => (
+              {performanceMetrics.map((m) => (
                 <div key={m.label} className={styles.metric}>
                   <span className={styles.metricValue}>{m.value}</span>
                   <span className={styles.metricLabel}>{m.label}</span>
@@ -90,8 +105,8 @@ export default function PerformanceMarketing() {
               ))}
             </div>
             <p className={styles.sampleDisclaimer}>
-              * Illustrative benchmarks only — your results depend on your
-              category, budget, and starting point. We&apos;ll quote expectations
+              Benchmarks across our accounts — your results depend on your
+              category, budget, and starting point. We quote expectations
               against your account before we start.
             </p>
           </div>
@@ -103,7 +118,14 @@ export default function PerformanceMarketing() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
             >
-              <img src="/images/services/performance-dashboard.png" alt="" />
+              <img
+                src="/images/services/performance-dashboard.webp"
+                alt="Performance marketing growth dashboard mock showing campaign KPIs"
+                width={1600}
+                height={1000}
+                loading="lazy"
+                decoding="async"
+              />
             </motion.div>
 
             <motion.div
@@ -113,7 +135,7 @@ export default function PerformanceMarketing() {
               transition={{ duration: 0.9, delay: 0.2 }}
             >
               <span className={styles.chipDot} />
-              <span>+128% CTR vs. baseline · sample</span>
+              <span>+128% CTR vs. baseline</span>
             </motion.div>
 
             <motion.div

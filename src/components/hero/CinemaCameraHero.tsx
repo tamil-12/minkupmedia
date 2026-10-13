@@ -25,7 +25,7 @@ interface Props {
  * illustration — the page never looks broken.
  */
 export default function CinemaCameraHero({
-  posterSrc = "/images/hero/cinema-camera-poster.png",
+  posterSrc = "/images/hero/cinema-camera-poster.webp",
   playVideo = false,
   webmSrc = "/videos/cinema-camera-hero.webm",
   mp4Src = "/videos/cinema-camera-hero.mp4",

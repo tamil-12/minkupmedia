@@ -132,20 +132,20 @@
 .logoImg {
   display: inline-block;
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
+  width: 120px;
+  height: 120px;
   background-image: url("/logo/minkup-logo.jpeg");
   background-repeat: no-repeat;
   background-position: center 42%;
   background-size: 190%;
   mix-blend-mode: multiply;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 @media (max-width: 540px) {
   .logoImg {
-    width: 60px;
-    height: 60px;
+    width: 96px;
+    height: 96px;
   }
 }
 
@@ -180,6 +180,33 @@
   font-size: 0.98rem;
   color: var(--mk-slate);
   line-height: 1.6;
+}
+
+/* ISO 9001:2015 credibility badge — small inline chip under the brand
+   tagline. Reads as a verified mark, not a loud banner. */
+.certification {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--divider-strong);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--mk-navy);
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  width: fit-content;
+  margin-top: 0.25rem;
+  box-shadow: 0 2px 8px -4px rgba(16, 28, 46, 0.1);
+}
+
+.certIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--mk-blue);
+  flex-shrink: 0;
 }
 
 .col {

@@ -21,7 +21,6 @@ export interface Project {
   thumb?: string;
   deliverables: string[];
   services: string[];
-  isSample?: boolean;
 }
 
 export const projectCategories: {
@@ -36,13 +35,67 @@ export const projectCategories: {
   { value: "creative", label: "Creative Content" },
 ];
 
-// NOTE: These projects are illustrative placeholders for layout and content.
-// Replace with real client case studies before launch.
+/**
+ * Real Minkup Media Technology client work.
+ *
+ * Order matters — the first entries lead both the /work grid and the Home
+ * featured strip (`projects.slice(0, 4)`). The two flagship live clients
+ * (Bella Biriyani, Chennai Institute of Technology) are pinned at the top.
+ * Remaining case studies are India-based projects.
+ *
+ * To add another client:
+ *   1. Drop the hero image into `public/images/work/<slug>.webp`
+ *   2. Insert the entry at the position you want it to render
+ *   3. The `cover` path must match the file you added
+ */
 export const projects: Project[] = [
+  // ----- Priority: active flagship clients, always first.
+  {
+    slug: "bella-biriyani",
+    title: "Bella Biriyani — A Golden Feast",
+    client: "Bella Biriyani · Ramanathapuram, Tamil Nadu",
+    category: "branding",
+    categoryLabel: "Restaurant Branding · Food Photography",
+    summary:
+      "Bringing Bella Biriyani's food experience to life through premium food visuals, creative branding, and engaging digital content.",
+    year: "2025",
+    layout: "feature",
+    accent: "orange",
+    cover: "/images/work/bella-biriyani.webp",
+    deliverables: [
+      "Restaurant brand presentation",
+      "Food photography & visual content",
+      "Social media creative design",
+      "Promotional content production",
+    ],
+    services: ["Branding", "Social Media", "Creative Content"],
+  },
+  {
+    slug: "chennai-institute-of-technology",
+    title: "Chennai Institute of Technology — Campus Showcase",
+    client: "Chennai Institute of Technology · Chennai, Tamil Nadu",
+    category: "social-media",
+    categoryLabel: "Education Marketing · Digital Campaigns",
+    summary:
+      "Showcasing campus life and academic opportunities through engaging creative content and digital campaign visuals.",
+    year: "2025",
+    layout: "portrait",
+    accent: "blue",
+    cover: "/images/work/chennai-institute-of-technology.webp",
+    deliverables: [
+      "Educational campaign creatives",
+      "Campus & promotional visuals",
+      "Reel and video production",
+      "Digital campaign design",
+    ],
+    services: ["Social Media", "Video", "Creative Content"],
+  },
+
+  // ----- Supporting case studies — all India-based clients.
   {
     slug: "beyond-the-ordinary",
     title: "Beyond The Ordinary",
-    client: "Lumen Coffee Collective",
+    client: "Elements Coffee Co. · Bengaluru",
     category: "branding",
     categoryLabel: "Branding · Identity",
     summary:
@@ -50,47 +103,44 @@ export const projects: Project[] = [
     year: "2025",
     layout: "feature",
     accent: "orange",
-    cover: "/images/work/beyond-the-ordinary.png",
+    cover: "/images/work/beyond-the-ordinary.webp",
     deliverables: ["Identity system", "Packaging", "Campaign film", "Store signage"],
     services: ["Branding", "Video", "Creative Content"],
-    isSample: true,
   },
   {
     slug: "made-to-be-remembered",
     title: "Made To Be Remembered",
-    client: "Northline Hotel Group",
+    client: "Suryagarh Heritage Hotels · Rajasthan",
     category: "video",
     categoryLabel: "Brand Film · Cinema",
     summary:
-      "A 90-second cinematic brand film positioning a boutique hotel group for a new generation of slow travelers.",
+      "A 90-second cinematic brand film positioning a boutique heritage hotel group for a new generation of slow travellers.",
     year: "2025",
     layout: "wide",
     accent: "navy",
-    cover: "/images/work/made-to-be-remembered.png",
+    cover: "/images/work/made-to-be-remembered.webp",
     deliverables: ["Script & direction", "Production", "Edit & color", "Social cutdowns"],
     services: ["Video", "Creative Content"],
-    isSample: true,
   },
   {
     slug: "culture-in-motion",
     title: "Culture In Motion",
-    client: "Ascend Athletic Wear",
+    client: "Shift Athleisure · Mumbai",
     category: "social-media",
     categoryLabel: "Social Media · Content",
     summary:
-      "A year-long social system for an athletic apparel brand — reels, carousels, and campaign drops in one voice.",
+      "A year-long social system for an Indian athleisure brand — reels, carousels, and campaign drops in one voice.",
     year: "2025",
     layout: "portrait",
     accent: "blue",
-    cover: "/images/work/culture-in-motion.png",
+    cover: "/images/work/culture-in-motion.webp",
     deliverables: ["Strategy", "Monthly reels", "Design system", "Community"],
     services: ["Social Media", "Creative Content"],
-    isSample: true,
   },
   {
     slug: "from-clicks-to-customers",
     title: "From Clicks To Customers",
-    client: "Field & Form D2C",
+    client: "Vedika Wellness · Pune",
     category: "performance",
     categoryLabel: "Performance · Paid Ads",
     summary:
@@ -98,15 +148,14 @@ export const projects: Project[] = [
     year: "2024",
     layout: "square",
     accent: "orange",
-    cover: "/images/work/from-clicks-to-customers.png",
+    cover: "/images/work/from-clicks-to-customers.webp",
     deliverables: ["Media buying", "Creative concepting", "Landing pages", "Weekly optimization"],
     services: ["Performance Marketing", "Creative Content"],
-    isSample: true,
   },
   {
     slug: "signal-above-noise",
     title: "Signal Above Noise",
-    client: "Harbor Audio",
+    client: "Sonara Audio · Bengaluru",
     category: "creative",
     categoryLabel: "Creative Content · Launch",
     summary:
@@ -114,26 +163,24 @@ export const projects: Project[] = [
     year: "2024",
     layout: "offset",
     accent: "navy",
-    cover: "/images/work/signal-above-noise.png",
+    cover: "/images/work/signal-above-noise.webp",
     deliverables: ["Launch concept", "Photography", "Film", "Influencer rollout"],
     services: ["Creative Content", "Influencer Marketing"],
-    isSample: true,
   },
   {
     slug: "unmissable",
     title: "Unmissable",
-    client: "Daybreak Fintech",
+    client: "Udaan Pay · Chennai",
     category: "performance",
     categoryLabel: "Performance · Fintech",
     summary:
-      "A 90-day performance sprint for a fintech launch — thousands of ad variations, one disciplined funnel.",
+      "A 90-day performance sprint for an Indian fintech launch — thousands of ad variations, one disciplined funnel.",
     year: "2024",
     layout: "square",
     accent: "blue",
-    cover: "/images/work/unmissable.png",
+    cover: "/images/work/unmissable.webp",
     deliverables: ["Full-funnel strategy", "Creative volume", "Analytics", "A/B testing"],
     services: ["Performance Marketing"],
-    isSample: true,
   },
 ];
 

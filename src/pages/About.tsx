@@ -2,6 +2,8 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import Button from "../components/common/Button";
 import { siteSettings } from "../data/siteSettings";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./About.module.css";
 
 const principles = [
@@ -59,6 +61,15 @@ export default function About() {
 
   return (
     <div ref={revealRef} className={styles.page}>
+      <Seo
+        title="About — Our Approach & Leadership"
+        description="A creative marketing agency that treats strategy and craft as the same discipline. Based in Coimbatore, led by Ranjith Kumar M and Boopathi Raj K. Our principles, process, and leadership."
+        path="/about"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <section className={styles.hero}>
         <div className="container">
           <p className="eyebrow">ABOUT MINKUP</p>
@@ -242,14 +253,22 @@ export default function About() {
         <div className="container-xl">
           <div className={styles.imageGrid}>
             <img
-              src="/images/about/global.png"
+              src="/images/about/global.webp"
               alt="Minkup team working across global time zones"
               className={styles.imageA}
+              width={1600}
+              height={1000}
+              loading="lazy"
+              decoding="async"
             />
             <img
-              src="/images/about/mountains.png"
-              alt="Studio location — mountain landscape"
+              src="/images/about/mountains.webp"
+              alt="Studio location — mountain landscape near Coimbatore"
               className={styles.imageB}
+              width={1200}
+              height={1500}
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <blockquote className={styles.quote}>

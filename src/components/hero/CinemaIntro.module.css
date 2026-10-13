@@ -6,6 +6,11 @@
   overflow: hidden;
   isolation: isolate;
   cursor: pointer;
+  /* Promote to its own compositor layer so the opacity fade is handled by
+     the GPU — avoids visible paint jank/"shutter" at the end of the intro. */
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Crop zoom: scale the video 18% beyond the viewport on every edge so corner

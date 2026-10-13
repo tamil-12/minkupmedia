@@ -119,8 +119,8 @@
   --dur-xl: 1200ms;
 
   /* ---------- Header ---------- */
-  --header-h: 84px;
-  --header-h-sm: 68px;
+  --header-h: 128px;
+  --header-h-sm: 108px;
 
   /* ---------- Grid ---------- */
   --grid-gutter: clamp(1rem, 2vw, 2rem);

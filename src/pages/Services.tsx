@@ -16,6 +16,8 @@ import Button from "../components/common/Button";
 import ServicesHeroVideo from "../components/hero/ServicesHeroVideo";
 import { services, type Service } from "../data/services";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./Services.module.css";
 
 const serviceIcons: Record<string, typeof Megaphone> = {
@@ -55,6 +57,15 @@ export default function Services() {
 
   return (
     <div ref={revealRef} className={styles.page}>
+      <Seo
+        title="Services — Strategy, Creative, Performance"
+        description="Seven disciplines under one agency: social media marketing, performance advertising, video editing, graphic design & branding, SEO, influencer marketing, and lead generation. Strategy meets creative execution."
+        path="/services"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       <ServicesHeroVideo />
 
       <section className={styles.hero}>

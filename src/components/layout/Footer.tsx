@@ -55,6 +55,22 @@ export default function Footer() {
             A creative marketing agency building unforgettable brands through strategy,
             performance, and cinematic creative work.
           </p>
+          <p className={styles.certification}>
+            <svg
+              className={styles.certIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 2 4.5 5v7c0 4.5 3.4 8.7 7.5 10 4.1-1.3 7.5-5.5 7.5-10V5L12 2z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+            An ISO 9001 : 2015 Certified Organisation
+          </p>
         </div>
 
         <nav className={styles.col} aria-label="Site">

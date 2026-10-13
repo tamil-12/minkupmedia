@@ -3,6 +3,8 @@ import { Play, ArrowUpRight, Film, PenTool, Camera, Rocket } from "lucide-react"
 import Button from "../components/common/Button";
 import VideoPlayer from "../components/common/VideoPlayer";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./CreativeStudio.module.css";
 
 const disciplines = [
@@ -51,6 +53,15 @@ export default function CreativeStudio() {
 
   return (
     <div ref={revealRef} className={styles.page}>
+      <Seo
+        title="Creative Studio — Film, Design, Direction"
+        description="Video, design, and direction under one roof. We write, shoot, cut, score, and ship — all in-house. Films that get remembered, grids that look designed, campaigns that behave like a brand."
+        path="/creative-studio"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Creative Studio", path: "/creative-studio" },
+        ])}
+      />
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <p className="eyebrow">THE CREATIVE STUDIO</p>
@@ -81,9 +92,13 @@ export default function CreativeStudio() {
 
         <div className={styles.heroImageRow}>
           <motion.img
-            src="/images/creative-studio/sunset.png"
-            alt="Cinematic studio set at golden hour"
+            src="/images/creative-studio/sunset.webp"
+            alt="Cinematic studio set at golden hour — Minkup Media Technology creative studio"
             className={styles.heroImageA}
+            width={1600}
+            height={2000}
+            loading="eager"
+            decoding="async"
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
@@ -117,7 +132,7 @@ export default function CreativeStudio() {
 
           <VideoPlayer
             sources={[{ src: "/videos/showreel.mp4", type: "video/mp4" }]}
-            poster="/images/creative-studio/showreel.png"
+            poster="/images/creative-studio/showreel.webp"
             title="Minkup Studio — Showreel 2025"
             caption="Direction · Editing · Design"
             autoPlay

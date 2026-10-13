@@ -36,17 +36,40 @@ export default function Header() {
         data-scrolled={scrolled || undefined}
       >
         <div className={styles.inner}>
-          <Link
-            to="/"
-            className={styles.brand}
-            aria-label={`${siteSettings.companyName} — home`}
-          >
-            <img
-              src={siteSettings.logoLight}
-              alt={siteSettings.companyName}
-              className={styles.logoImg}
-            />
-          </Link>
+          <div className={styles.brandStack}>
+            <Link
+              to="/"
+              className={styles.brand}
+              aria-label={`${siteSettings.companyName} — home`}
+            >
+              <img
+                src={siteSettings.logoLight}
+                alt={siteSettings.companyName}
+                className={styles.logoImg}
+              />
+            </Link>
+            <span
+              className={styles.certBadge}
+              title="An ISO 9001 : 2015 Certified Organisation"
+            >
+              <svg
+                className={styles.certBadgeIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 2 4.5 5v7c0 4.5 3.4 8.7 7.5 10 4.1-1.3 7.5-5.5 7.5-10V5L12 2z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <span className={styles.certBadgeText}>
+                An ISO 9001 : 2015 Certified Organisation
+              </span>
+            </span>
+          </div>
 
           <nav className={styles.nav} aria-label="Primary">
             {primaryNav.map((link) => (

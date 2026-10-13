@@ -162,12 +162,12 @@
 .heroPanel::after {
   content: "";
   position: absolute;
-  inset: 35% 30%;
+  inset: 40% 36%;
   border-radius: 999px;
   background:
-    linear-gradient(135deg, rgba(11, 169, 224, 0.18), rgba(247, 71, 36, 0.2)),
-    rgba(255, 255, 255, 0.68);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    linear-gradient(135deg, rgba(11, 169, 224, 0.1), rgba(247, 71, 36, 0.12)),
+    rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
 }
 
 .panelHeader {
@@ -207,23 +207,24 @@
 .orbitItem {
   --i: 0;
   position: absolute;
-  left: calc(50% + cos((var(--i) * 51.428deg) - 95deg) * min(30%, 145px));
-  top: calc(50% + sin((var(--i) * 51.428deg) - 95deg) * min(38%, 184px));
+  left: calc(50% + cos((var(--i) * 51.428deg) - 95deg) * min(38%, 180px));
+  top: calc(50% + sin((var(--i) * 51.428deg) - 95deg) * min(42%, 205px));
   transform: translate(-50%, -50%);
-  min-width: 168px;
-  min-height: 54px;
+  min-width: 118px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0.85rem;
-  border: 1px solid rgba(16, 28, 46, 0.1);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.9);
+  gap: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(16, 28, 46, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
   color: var(--mk-navy);
-  box-shadow: 0 16px 34px -28px rgba(16, 28, 46, 0.55);
-  font-size: 0.83rem;
-  font-weight: 800;
+  box-shadow: 0 12px 28px -22px rgba(16, 28, 46, 0.5);
+  font-size: 0.78rem;
+  font-weight: 700;
   line-height: 1.15;
+  white-space: nowrap;
   animation: floatCard 4.5s ease-in-out infinite;
   animation-delay: calc(var(--i) * -0.42s);
 }
@@ -644,14 +645,18 @@
   white-space: nowrap;
 }
 
+/* Float uses the standalone `translate` property so it composes with the
+   centering `transform: translate(-50%, -50%)` on .orbitItem without
+   overwriting it. `translate` is GPU-composited — no layout thrash per frame
+   (margin-top was triggering reflow on every tick, hence the jitter). */
 @keyframes floatCard {
   0%,
   100% {
-    margin-top: 0;
+    translate: 0 0;
   }
 
   50% {
-    margin-top: -10px;
+    translate: 0 -8px;
   }
 }
 

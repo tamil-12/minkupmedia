@@ -1,0 +1,15 @@
+# https://minkupmedia.trdigital.in/robots.txt
+# Minkup Media Technology
+
+User-agent: *
+Allow: /
+
+# Hostinger / Node app serves static assets from these — allow crawl so
+# image indexing picks them up for Google Images & social previews.
+Allow: /images/
+Allow: /videos/
+Allow: /logo/
+
+# Nothing to hide — the SPA mounts on /, every route is linked from the nav.
+
+Sitemap: https://minkupmedia.trdigital.in/sitemap.xml

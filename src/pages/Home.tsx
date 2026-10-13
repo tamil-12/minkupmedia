@@ -6,35 +6,32 @@ import CinemaCameraHero from "../components/hero/CinemaCameraHero";
 import CinemaIntro from "../components/hero/CinemaIntro";
 import SectionHeading from "../components/common/SectionHeading";
 import Button from "../components/common/Button";
+import WalkingMascot from "../components/common/WalkingMascot";
 import { services } from "../data/services";
 import { projects } from "../data/projects";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useReducedMotion } from "../hooks/useReducedMotion";
+import Seo from "../seo/Seo";
+import { organizationJsonLd, websiteJsonLd } from "../seo/jsonLd";
 import styles from "./Home.module.css";
 
 /**
- * Illustrated service icons loaded directly from Iconify's public CDN. Every
- * slug below is verified in the `twemoji` set, so no broken-image fallbacks.
- * Swap any value with another Iconify slug to change the icon.
+ * Local 3D/glossy service icons bundled with the site. Files live in
+ * `public/images/service-icons/` and are named after the matching service
+ * slug so adding a new service only means dropping `<slug>.png` into that
+ * folder — no code change needed if a matching file exists.
  */
 const homeServiceIconUrls: Record<string, string> = {
-  "social-media-marketing":
-    "https://api.iconify.design/twemoji/camera-with-flash.svg",
-  "performance-marketing":
-    "https://api.iconify.design/twemoji/chart-increasing.svg",
-  "video-editing":
-    "https://api.iconify.design/twemoji/clapper-board.svg",
-  "graphic-design":
-    "https://api.iconify.design/twemoji/artist-palette.svg",
-  seo: "https://api.iconify.design/twemoji/magnifying-glass-tilted-right.svg",
-  "influencer-marketing":
-    "https://api.iconify.design/twemoji/megaphone.svg",
-  "lead-generation":
-    "https://api.iconify.design/twemoji/direct-hit.svg",
+  "social-media-marketing": "/images/service-icons/social-media-marketing.webp",
+  "performance-marketing": "/images/service-icons/performance-marketing.webp",
+  "video-editing": "/images/service-icons/video-editing.webp",
+  "graphic-design": "/images/service-icons/graphic-design.webp",
+  seo: "/images/service-icons/seo.webp",
+  "influencer-marketing": "/images/service-icons/influencer-marketing.webp",
+  "lead-generation": "/images/service-icons/lead-generation.webp",
 };
 
-const FALLBACK_ICON_URL =
-  "https://api.iconify.design/twemoji/sparkles.svg";
+const FALLBACK_ICON_URL = "/images/service-icons/social-media-marketing.webp";
 
 const INTRO_SESSION_KEY = "minkup:intro-seen";
 
@@ -82,10 +79,12 @@ const steps = [
 export default function Home() {
   const revealRef = useScrollReveal<HTMLDivElement>();
   const reduced = useReducedMotion();
-  // Two-state intro gate so the hero fades IN while the overlay is still
-  // fading out — one smooth crossfade instead of a blank gap.
+  // Hero items animate IN during the intro video (not after). By the time
+  // the overlay fades, the hero is already a fully-settled static layout —
+  // the fade reveals a finished composition instead of triggering a burst
+  // of animations, which kills the "frame shutter" moment.
   const initialSkip = reduced || hasSeenIntro();
-  const [heroVisible, setHeroVisible] = useState<boolean>(initialSkip);
+  const [heroVisible, setHeroVisible] = useState<boolean>(true);
   const [introMounted, setIntroMounted] = useState<boolean>(!initialSkip);
 
   // Safety fuse — if the intro ever fails to call onBeginExit (video error,
@@ -101,6 +100,12 @@ export default function Home() {
 
   return (
     <div ref={revealRef}>
+      <Seo
+        title="Creative Marketing Agency in Coimbatore"
+        description="Minkup Media Technology — a creative marketing agency building unforgettable brands through social media, performance marketing, video production, SEO, and lead generation. Based in Coimbatore, serving brands worldwide."
+        path="/"
+        jsonLd={[organizationJsonLd(), websiteJsonLd()]}
+      />
       {introMounted && (
         <CinemaIntro
           onBeginExit={() => {
@@ -215,6 +220,10 @@ export default function Home() {
             <span>Scroll Down</span>
           </a>
         </div>
+
+        {/* Decorative mascot that walks across the bottom of the hero every
+            ~22 seconds. Pure SVG + CSS, respects prefers-reduced-motion. */}
+        <WalkingMascot />
       </section>
 
       {/* --------------------------------------------------- SERVICES INTRO
@@ -268,7 +277,14 @@ export default function Home() {
                   >
                     <span className={styles.svcCardTop}>
                       <span className={styles.svcCardIcon}>
-                        <img src={iconUrl} alt="" loading="lazy" />
+                        <img
+                          src={iconUrl}
+                          alt=""
+                          width={96}
+                          height={96}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </span>
                       <span className={styles.svcCardNum}>{s.index}</span>
                     </span>
@@ -309,7 +325,14 @@ export default function Home() {
                 data-reveal-delay={i * 80}
               >
                 <div className={styles.workCover}>
-                  <img src={p.cover} alt={p.title} loading="lazy" />
+                  <img
+                    src={p.cover}
+                    alt={`${p.title} — ${p.client}`}
+                    width={1200}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <div className={styles.workMeta}>
                   <span className={styles.workCategory}>{p.categoryLabel}</span>

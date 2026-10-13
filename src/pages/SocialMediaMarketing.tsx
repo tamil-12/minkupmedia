@@ -2,6 +2,8 @@ import { ArrowUpRight, Megaphone, Clapperboard, Users, Sparkles, Palette, LineCh
 import { motion } from "framer-motion";
 import Button from "../components/common/Button";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd, serviceJsonLd } from "../seo/jsonLd";
 import styles from "./SocialMediaMarketing.module.css";
 
 const capabilities = [
@@ -50,6 +52,19 @@ export default function SocialMediaMarketing() {
 
   return (
     <div ref={revealRef} className={styles.page}>
+      <Seo
+        title="Social Media Marketing & Management"
+        description="End-to-end social media marketing — strategy, content planning, reel production, account management, campaign concepts, and community moderation. Make your brand part of the daily conversation."
+        path="/services/social-media-marketing"
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: "Social Media Marketing", path: "/services/social-media-marketing" },
+          ]),
+          serviceJsonLd("social-media-marketing") ?? {},
+        ]}
+      />
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
@@ -83,7 +98,14 @@ export default function SocialMediaMarketing() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
             >
-              <img src="/images/services/social-media.png" alt="Social content frame" />
+              <img
+                src="/images/services/social-media.webp"
+                alt="Social media content frame showing a reel still from a Minkup campaign"
+                width={1200}
+                height={1500}
+                loading="lazy"
+                decoding="async"
+              />
               <span className={styles.collageTag}>REEL · 00:12</span>
             </motion.div>
 
@@ -118,7 +140,7 @@ export default function SocialMediaMarketing() {
               <span className={styles.collageBadgeLabel}>
                 reach lift
                 <br />
-                <em>sample campaign</em>
+                <em>client campaign</em>
               </span>
             </div>
           </div>
@@ -165,7 +187,7 @@ export default function SocialMediaMarketing() {
               A rhythm you can plan the rest of the business around.
             </h2>
             <p className={styles.cadenceCopy}>
-              A sample working rhythm. We adapt around studio shoots, product
+              Our working rhythm. We adapt around studio shoots, product
               launches, and travel — but the beat stays consistent.
             </p>
           </div>

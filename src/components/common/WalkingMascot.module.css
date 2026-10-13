@@ -1,0 +1,137 @@
+/* Container pinned to the bottom of the parent — parent must be
+   position: relative or absolute. */
+.wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+/* The character — walks from off-screen left to off-screen right every
+   22 seconds. Delay the first run so it doesn't start the moment the page
+   loads (lets the hero reveal happen first). */
+.walker {
+  position: absolute;
+  bottom: 0;
+  left: -100px;
+  width: 72px;
+  height: 48px;
+  color: var(--mk-navy);
+  animation: walk-across 22s linear 4s infinite;
+}
+
+@keyframes walk-across {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Travel the full viewport + the cat's own width so it fully exits right. */
+    transform: translateX(calc(100vw + 100px));
+  }
+}
+
+/* Subtle vertical bob to sell the walk. */
+.cat {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: bob 0.42s ease-in-out infinite;
+  filter: drop-shadow(0 3px 4px rgba(16, 28, 46, 0.18));
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Tail sway — soft arc. */
+.tail {
+  transform-origin: 12px 26px;
+  animation: tail-sway 1.2s ease-in-out infinite;
+}
+
+@keyframes tail-sway {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Four legs — alternating pairs step so it reads as a trot/walk cycle.
+   Each leg lifts and lands via a scaleY + translateY toggle. */
+.leg {
+  transform-origin: center top;
+  will-change: transform;
+}
+
+.legBackA,
+.legFrontA {
+  animation: step-a 0.42s steps(2) infinite;
+}
+
+.legBackB,
+.legFrontB {
+  animation: step-b 0.42s steps(2) infinite;
+}
+
+@keyframes step-a {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-3px) scaleY(0.75);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes step-b {
+  0% {
+    transform: translateY(-3px) scaleY(0.75);
+  }
+  50% {
+    transform: translateY(0) scaleY(1);
+  }
+  100% {
+    transform: translateY(-3px) scaleY(0.75);
+  }
+}
+
+/* Respect reduced motion — pin the cat off-screen so it's effectively hidden. */
+@media (prefers-reduced-motion: reduce) {
+  .walker,
+  .cat,
+  .tail,
+  .leg {
+    animation: none;
+  }
+
+  .walker {
+    display: none;
+  }
+}
+
+/* On very narrow phones, scale the cat down a touch so it doesn't feel oversized. */
+@media (max-width: 480px) {
+  .walker {
+    width: 56px;
+    height: 38px;
+  }
+
+  .wrap {
+    height: 48px;
+  }
+}

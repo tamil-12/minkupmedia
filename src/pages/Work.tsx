@@ -7,6 +7,8 @@ import {
   type ProjectCategory,
 } from "../data/projects";
 import Button from "../components/common/Button";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./Work.module.css";
 
 type Filter = "all" | ProjectCategory;
@@ -21,6 +23,15 @@ export default function Work() {
 
   return (
     <div className={styles.page}>
+      <Seo
+        title="Our Work — Selected Projects"
+        description="A selection of brand films, social campaigns, performance work, and creative systems built by Minkup Media Technology. Case studies across branding, video, social media, and performance marketing."
+        path="/work"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+        ])}
+      />
       <section className={styles.hero}>
         <div className="container">
           <p className="eyebrow">PORTFOLIO · 2022 — 2025</p>
@@ -111,7 +122,15 @@ function ProjectTile({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.45, delay: Math.min(index * 0.05, 0.25), ease: [0.2, 0.8, 0.2, 1] }}
     >
       <div className={styles.cover}>
-        <img src={project.cover} alt={project.title} loading="lazy" />
+        <img
+          src={project.cover}
+          alt={`${project.title} — ${project.client} · ${project.categoryLabel}`}
+          width={1200}
+          height={900}
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={index === 0 ? "high" : "auto"}
+        />
       </div>
       <div className={styles.meta}>
         <span className={styles.metaCat}>{project.categoryLabel}</span>
@@ -123,7 +142,6 @@ function ProjectTile({ project, index }: { project: Project; index: number }) {
           </span>
         </div>
       </div>
-      {project.isSample && <span className={styles.sampleTag}>Sample</span>}
     </motion.article>
   );
 }

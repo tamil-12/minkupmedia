@@ -4,6 +4,8 @@ import Button from "../components/common/Button";
 import { services } from "../data/services";
 import { siteSettings } from "../data/siteSettings";
 import { EnquiryPayload, submitEnquiry, whatsappLink } from "../api/enquiry";
+import Seo from "../seo/Seo";
+import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./Contact.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -84,6 +86,15 @@ export default function Contact() {
 
   return (
     <div className={styles.page}>
+      <Seo
+        title="Contact — Start a Project"
+        description="Tell us about your business, your goals, and the kind of creative impact you want to make. Email, phone, WhatsApp, or send an enquiry — Minkup Media Technology, Coimbatore."
+        path="/contact"
+        jsonLd={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <section className={styles.hero}>
         <div className="container">
           <p className="eyebrow">CONTACT · START A PROJECT</p>

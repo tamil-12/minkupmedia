@@ -2,23 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo/minkup-logo-transparent.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#DFF3FF" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="generator" content="Vite + React" />
+    <meta name="author" content="Minkup Media Technology" />
+    <meta name="keywords" content="creative marketing agency Coimbatore, social media marketing, performance marketing, video production, SEO, lead generation, branding, Minkup Media Technology, Tamil Nadu digital agency" />
+
+    <!-- Fallback meta — react-helmet-async overrides these per route at runtime
+         but a crawler without JS still gets reasonable defaults. -->
     <meta
       name="description"
-      content="Minkup Media Technology — a creative marketing agency building unforgettable brands through strategy, performance marketing, and cinematic creative work."
+      content="Minkup Media Technology — a creative marketing agency building unforgettable brands through strategy, performance marketing, SEO, and cinematic creative work. Based in Coimbatore, serving brands worldwide."
     />
+    <meta property="og:site_name" content="Minkup Media Technology" />
     <meta property="og:title" content="Minkup Media Technology — We Make Brands Impossible To Ignore" />
     <meta
       property="og:description"
       content="Creative storytelling, intelligent marketing, and digital experiences that turn attention into business growth."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/hero/cinema-camera-poster.png" />
+    <meta property="og:url" content="https://minkupmedia.trdigital.in/" />
+    <meta property="og:image" content="https://minkupmedia.trdigital.in/images/hero/cinema-camera-poster.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Minkup Media Technology — We Make Brands Impossible To Ignore" />
+    <meta name="twitter:description" content="Creative storytelling, intelligent marketing, and digital experiences that turn attention into business growth." />
+    <meta name="twitter:image" content="https://minkupmedia.trdigital.in/images/hero/cinema-camera-poster.webp" />
 
+    <!-- Favicon set + PWA manifest. SVG mark + JPEG fallback for Safari. -->
+    <link rel="icon" type="image/svg+xml" href="/logo/minkup-logo-transparent.svg" />
+    <link rel="alternate icon" href="/logo/minkup-logo.jpeg" />
+    <link rel="apple-touch-icon" href="/logo/minkup-logo.jpeg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="https://minkupmedia.trdigital.in/" />
+
+    <!-- Preload the hero poster so the home background is cached by the time
+         the cinematic intro overlay starts fading out — kills the "shutter"
+         moment where the home scene would otherwise pop in. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/cinema-camera-poster.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+
+    <!-- Font pipeline: preconnect + swap display so FCP is never font-blocked. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"

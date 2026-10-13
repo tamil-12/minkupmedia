@@ -496,22 +496,41 @@
 
 .svcBand {
   padding-block: clamp(3.5rem, 7vw, 6rem);
+  /* Richer, brighter dark band — bigger brand glows top-left and bottom-right,
+     a lifted midtone band, and a subtle star-field speckle so the surface
+     feels like a cinema sky rather than a flat navy block. */
   background:
-    radial-gradient(900px 500px at 20% 0%, rgba(11, 169, 224, 0.14), transparent 60%),
-    radial-gradient(700px 400px at 100% 100%, rgba(247, 71, 36, 0.1), transparent 55%),
-    linear-gradient(180deg, #0a1626 0%, #101c2e 55%, #0a1626 100%);
+    radial-gradient(1200px 650px at 15% 0%, rgba(11, 169, 224, 0.3), transparent 55%),
+    radial-gradient(900px 500px at 100% 100%, rgba(247, 71, 36, 0.22), transparent 55%),
+    radial-gradient(600px 400px at 50% 50%, rgba(255, 255, 255, 0.03), transparent 70%),
+    linear-gradient(180deg, #0b1a2e 0%, #152743 55%, #0b1a2e 100%);
   color: var(--mk-white);
   position: relative;
   overflow: hidden;
 }
 
 .svcBand::before {
-  /* Soft top edge glow — stops the band reading as a hard black cut-in. */
+  /* Top edge glow line — stronger blue so the band reads as a lit stage edge. */
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(11, 169, 224, 0.5), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(11, 169, 224, 0.8) 30%,
+    rgba(247, 71, 36, 0.6) 70%,
+    transparent
+  );
+}
+
+.svcBand::after {
+  /* Bottom edge counter-glow so the band is framed on both sides. */
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(11, 169, 224, 0.4), transparent);
 }
 
 .svcHead {
@@ -586,38 +605,69 @@
   gap: clamp(0.65rem, 1vw, 0.9rem);
 }
 
+/* Vertical, icon-forward cards. The icon is the hero of each card — centred
+   up top, mono service number underneath it, title at the bottom. No chip
+   background competes with the glossy 3D icons; a subtle inner glow + hairline
+   border frames each card without feeling boxy. */
 .svcCard {
   position: relative;
-  border-radius: var(--radius-sm);
-  background: rgba(16, 28, 46, 0.5);
-  border: 1px solid rgba(185, 231, 255, 0.14);
+  border-radius: 14px;
+  /* Subtle glassy tint — brighter than fully transparent so cards read as
+     distinct surfaces, still dark enough that the icon mask blends cleanly. */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   overflow: hidden;
   transition:
     transform var(--dur-sm) var(--ease-out),
     border-color var(--dur-sm) var(--ease-out),
-    background var(--dur-sm) var(--ease-out);
-  isolation: isolate;
+    background var(--dur-sm) var(--ease-out),
+    box-shadow var(--dur-sm) var(--ease-out);
+}
+
+.svcCard::before {
+  /* Faint accent glow in the top-right corner — hints at the brand gradient
+     without needing a filled chip. */
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 160%;
+  height: 160%;
+  background: radial-gradient(circle, rgba(11, 169, 224, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity var(--dur-sm) var(--ease-out);
+}
+
+.svcAccentOrange::before {
+  background: radial-gradient(circle, rgba(247, 71, 36, 0.1) 0%, transparent 50%);
 }
 
 .svcCard:hover {
-  transform: translateY(-2px);
-  border-color: rgba(11, 169, 224, 0.5);
-  background: rgba(16, 28, 46, 0.72);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(11, 169, 224, 0.55);
+  box-shadow: 0 10px 30px -14px rgba(11, 169, 224, 0.5);
+}
+
+.svcAccentOrange:hover {
+  border-color: rgba(247, 71, 36, 0.55);
+  box-shadow: 0 10px 30px -14px rgba(247, 71, 36, 0.45);
+}
+
+.svcCard:hover::before {
+  opacity: 1;
 }
 
 .svcCardLink {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "icon  num   arrow"
-    "title title title";
-  column-gap: 0.6rem;
-  row-gap: 0.55rem;
-  padding: 0.75rem 0.75rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 1.4rem 0.75rem 1.1rem;
   color: var(--mk-white);
   text-decoration: none;
-  align-items: center;
 }
 
 .svcCardLink:hover {
@@ -629,84 +679,81 @@
 }
 
 .svcCardIcon {
-  grid-area: icon;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 72px;
+  height: 72px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: transparent;
+  border: none;
+  transition: transform var(--dur-md) var(--ease-out);
 }
 
-/* Illustrated SVG icons from Iconify — fill the chip with a subtle inset so
-   the native brand colors of the icon read without being clipped. */
+.svcCard:hover .svcCardIcon {
+  transform: scale(1.08);
+}
+
+/* Soft radial mask crops each icon to a circle, hiding the rectangular
+   background that most of the glossy PNGs carry — all icons now read as
+   floating orbs matching the Instagram + Influencer badges. The brightness
+   + saturation filter rebalances the icon colors so the 3D highlights pop. */
 .svcCardIcon img {
-  width: 22px;
-  height: 22px;
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: contain;
+  -webkit-mask: radial-gradient(circle at center, #000 46%, transparent 60%);
+  mask: radial-gradient(circle at center, #000 46%, transparent 60%);
+  filter: brightness(1.12) contrast(1.08) saturate(1.15)
+    drop-shadow(0 6px 18px rgba(11, 169, 224, 0.3));
 }
 
-/* Accents only tint the border — the icon itself keeps its native color. */
-.svcAccentBlue .svcCardIcon {
-  background: rgba(11, 169, 224, 0.12);
-  border-color: rgba(11, 169, 224, 0.3);
-}
-
-.svcAccentOrange .svcCardIcon {
-  background: rgba(247, 71, 36, 0.1);
-  border-color: rgba(247, 71, 36, 0.3);
-}
-
-.svcAccentNavy .svcCardIcon {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.18);
+.svcAccentOrange .svcCardIcon img {
+  filter: brightness(1.12) contrast(1.08) saturate(1.15)
+    drop-shadow(0 6px 18px rgba(247, 71, 36, 0.35));
 }
 
 .svcCardNum {
-  grid-area: num;
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: rgba(255, 255, 255, 0.42);
-  letter-spacing: 0.14em;
-  justify-self: start;
-  padding-top: 2px;
+  font-size: 0.64rem;
+  color: var(--mk-blue-300);
+  letter-spacing: 0.2em;
+  opacity: 0.65;
 }
 
 .svcCardTitle {
-  grid-area: title;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 0.78rem;
-  line-height: 1.25;
+  font-size: 0.84rem;
+  line-height: 1.3;
   letter-spacing: -0.005em;
   color: var(--mk-white);
+  margin-top: 0.1rem;
 }
 
+/* Arrow is tucked in the top-right corner, visible on hover only — keeps the
+   card centred and uncluttered until a user intentionally reaches for it. */
 .svcCardArrow {
-  grid-area: arrow;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
   display: inline-flex;
   color: var(--mk-blue-300);
-  opacity: 0.55;
+  opacity: 0;
+  transform: translate(-4px, 4px);
   transition:
     opacity var(--dur-sm) var(--ease-out),
     transform var(--dur-sm) var(--ease-out);
+  z-index: 2;
 }
 
 .svcAccentOrange .svcCardArrow {
   color: var(--mk-orange-300);
 }
 
-.svcAccentNavy .svcCardArrow {
-  color: var(--mk-blue-300);
-}
-
 .svcCard:hover .svcCardArrow {
   opacity: 1;
-  transform: translate(2px, -2px);
+  transform: translate(0, 0);
 }
 
 @media (max-width: 1180px) {

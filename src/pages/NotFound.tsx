@@ -1,9 +1,16 @@
 import Button from "../components/common/Button";
+import Seo from "../seo/Seo";
 import styles from "./NotFound.module.css";
 
 export default function NotFound() {
   return (
     <div className={styles.page}>
+      <Seo
+        title="Page not found"
+        description="The page you're looking for isn't on the map. Try the home page or our selected work."
+        path="/404"
+        noindex
+      />
       <div className="container">
         <p className="eyebrow">ERROR · 404</p>
         <h1 className={styles.code}>404</h1>

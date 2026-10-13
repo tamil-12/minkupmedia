@@ -32,8 +32,8 @@
 }
 
 .logoImg {
-  width: 140px;
-  height: 44px;
+  width: 190px;
+  height: 60px;
   background-image: url("/logo/minkup-logo.jpeg");
   background-repeat: no-repeat;
   background-position: center;
@@ -105,9 +105,35 @@
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--divider);
+}
+
+/* ISO 9001:2015 credibility pill in the mobile menu footer. */
+.certification {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.95rem;
+  border: 1px solid var(--divider-strong);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--mk-navy);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  width: fit-content;
+  margin: 0;
+  box-shadow: 0 2px 8px -4px rgba(16, 28, 46, 0.1);
+}
+
+.certIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--mk-blue);
+  flex-shrink: 0;
 }
 
 .cta {

@@ -42,9 +42,14 @@ export default function CinemaIntro({
   onDone,
   mp4Src = "/videos/cinema-camera-hero.mp4",
   webmSrc = "/videos/cinema-camera-hero.webm",
-  posterSrc = "/images/hero/cinema-camera-poster.png",
-  maxDurationMs = 7000,
-  holdFrozenMs = 1800,
+  posterSrc = "/images/hero/cinema-camera-poster.webp",
+  // Safety fuse only — kicks in if the video stalls / never fires `ended`.
+  // Set well beyond any realistic clip length so the full logo-reveal plays
+  // uninterrupted. The real exit is triggered by the `ended` listener below.
+  maxDurationMs = 25000,
+  // Hold the final frame (company reveal) long enough for the viewer to read
+  // it before the overlay fades and the home page takes over.
+  holdFrozenMs = 2800,
 }: Props) {
   const [phase, setPhase] = useState<Phase>("playing");
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -147,14 +152,17 @@ export default function CinemaIntro({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // One element across all phases so the paused `<video>` never remounts and
-  // the last frame stays truly frozen. Opacity sequence:
-  //   playing → 1 (fully covers home)
-  //   frozen  → 0.14 (home items animate in clearly on top of the still frame)
-  //   exiting → 0 (final fade reveals the home page)
+  // Opacity sequence:
+  //   playing → 1 (video plays over everything)
+  //   frozen  → 0.995 (visually opaque, but just transparent enough that
+  //                    Chrome keeps painting the home page underneath — this
+  //                    kills the "frame shutter" that happens when the browser
+  //                    skip-paints a fully occluded element then has to catch
+  //                    up during the exit fade)
+  //   exiting → 0 (single smooth 2s crossfade reveals the home)
   const targetOpacity =
-    phase === "playing" ? 1 : phase === "frozen" ? 0.14 : 0;
-  const transitionDuration = phase === "frozen" ? 0.45 : 1.1;
+    phase === "playing" ? 1 : phase === "frozen" ? 0.995 : 0;
+  const transitionDuration = phase === "exiting" ? 2 : 0.6;
   const isExiting = phase === "exiting";
 
   return (
