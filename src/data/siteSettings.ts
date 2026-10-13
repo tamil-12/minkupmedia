@@ -56,8 +56,8 @@ export const siteSettings: SiteSettings = {
     { name: "Behance", url: "#", handle: "/minkupmedia" },
   ],
   contactEmailPlaceholder: "info@minkupmedia.com",
-  contactPhones: ["+91 97899 80013"],
-  contactPhonePlaceholder: "+91 97899 80013",
+  contactPhones: ["+91 73583 73599", "+91 97899 80013"],
+  contactPhonePlaceholder: "+91 73583 73599",
   address: {
     line1: "S.F. No: 360/4 & 360/5, Keeranatham Road",
     line2: "Near KGiSL Campus, Saravanampatti",
