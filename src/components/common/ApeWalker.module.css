@@ -1,0 +1,76 @@
+/* Container pinned to the bottom-left of the viewport, rides every page.
+   Big enough that the ape is a real character on the page, not a tiny
+   decorative icon. */
+.wrap {
+  position: fixed;
+  left: -260px;
+  bottom: 0;
+  z-index: 44;
+  width: 270px;
+  height: 270px;
+  pointer-events: none;
+}
+
+/* Walks from off-screen left to off-screen right every 28 seconds. */
+.walker {
+  width: 100%;
+  height: 100%;
+  animation: ape-walk-across 28s linear 3s infinite;
+  filter: drop-shadow(0 10px 18px rgba(16, 28, 46, 0.25));
+}
+
+@keyframes ape-walk-across {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Travel from off-screen left to fully off-screen right. */
+    transform: translateX(calc(100vw + 280px));
+  }
+}
+
+/* Scale down a touch on tablets so the ape doesn't dominate smaller screens. */
+@media (max-width: 900px) {
+  .wrap {
+    width: 180px;
+    height: 180px;
+    left: -200px;
+  }
+
+  @keyframes ape-walk-across {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(100vw + 220px));
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .wrap {
+    width: 140px;
+    height: 140px;
+    left: -160px;
+  }
+
+  @keyframes ape-walk-across {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(100vw + 180px));
+    }
+  }
+}
+
+/* Reduced-motion: component also early-returns, this is belt-and-braces. */
+@media (prefers-reduced-motion: reduce) {
+  .walker {
+    animation: none;
+  }
+
+  .wrap {
+    display: none;
+  }
+}

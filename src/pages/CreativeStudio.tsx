@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, ArrowUpRight, Film, PenTool, Camera, Rocket } from "lucide-react";
+import { Play, Film, PenTool, Camera, Rocket } from "lucide-react";
 import Button from "../components/common/Button";
 import VideoPlayer from "../components/common/VideoPlayer";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -35,16 +35,19 @@ const captions = [
     kind: "Brand Film · 02:14",
     title: "Northline Hotel Group",
     note: "Directed · Shot · Edited",
+    thumb: "/images/creative-studio/caption-northline.webp",
   },
   {
     kind: "Launch Film · 01:40",
     title: "Ascend Athletic Wear",
     note: "Concepted · Produced",
+    thumb: "/images/creative-studio/caption-ascend.webp",
   },
   {
     kind: "Reel Series · 00:28",
     title: "Lumen Coffee Collective",
     note: "Scripted · Edited · Scored",
+    thumb: "/images/creative-studio/caption-lumen.webp",
   },
 ];
 
@@ -95,24 +98,22 @@ export default function CreativeStudio() {
             src="/images/creative-studio/sunset.webp"
             alt="Cinematic studio set at golden hour — Minkup Media Technology creative studio"
             className={styles.heroImageA}
-            width={1600}
-            height={2000}
             loading="eager"
             decoding="async"
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
           />
-          <motion.div
-            className={`${styles.heroImageB} ${styles.heroImageMark}`}
+          <motion.img
+            src="/images/creative-studio/hero-frame.webp"
+            alt="Cinema camera operator at work on a Minkup studio set"
+            className={styles.heroImageB}
+            loading="eager"
+            decoding="async"
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.08, ease: [0.2, 0.8, 0.2, 1] }}
-            aria-hidden="true"
-          >
-            <span className={styles.heroImageMarkNum}>09</span>
-            <span className={styles.heroImageMarkLabel}>FILMS /<br />2024</span>
-          </motion.div>
+          />
         </div>
       </section>
 
@@ -144,6 +145,9 @@ export default function CreativeStudio() {
           <ul className={styles.captions}>
             {captions.map((c) => (
               <li key={c.title} className={styles.captionItem}>
+                <div className={styles.captionThumb}>
+                  <img src={c.thumb} alt="" loading="lazy" />
+                </div>
                 <span className={styles.captionKind}>{c.kind}</span>
                 <span className={styles.captionTitle}>{c.title}</span>
                 <span className={styles.captionNote}>{c.note}</span>
@@ -195,7 +199,12 @@ export default function CreativeStudio() {
           </div>
 
           <div className={styles.galleryGrid}>
-            <figure className={`${styles.gTile} ${styles.gLarge} ${styles.gSurface}`} data-accent="warm">
+            <figure className={`${styles.gTile} ${styles.gLarge}`} data-accent="warm">
+              <img
+                src="/images/creative-studio/gallery-01-golden-hour.webp"
+                alt="Golden hour mood piece — cinematic studio set, 85mm, directed in-house"
+                loading="lazy"
+              />
               <span className={styles.gMarkKind}>FILM</span>
               <span className={styles.gMarkNum}>01</span>
               <figcaption>
@@ -204,7 +213,12 @@ export default function CreativeStudio() {
               </figcaption>
             </figure>
 
-            <figure className={`${styles.gTile} ${styles.gSurface}`} data-accent="blue">
+            <figure className={styles.gTile} data-accent="blue">
+              <img
+                src="/images/creative-studio/gallery-02-product-launch.webp"
+                alt="Product mood launch — composited and animated hero shot"
+                loading="lazy"
+              />
               <span className={styles.gMarkKind}>LAUNCH</span>
               <span className={styles.gMarkNum}>02</span>
               <figcaption>
@@ -222,7 +236,12 @@ export default function CreativeStudio() {
               </figcaption>
             </figure>
 
-            <figure className={`${styles.gTile} ${styles.gWide} ${styles.gSurface}`} data-accent="orange">
+            <figure className={`${styles.gTile} ${styles.gWide}`} data-accent="orange">
+              <img
+                src="/images/creative-studio/gallery-04-key-visual.webp"
+                alt="Key visual — hero still that reads as OOH billboard and social"
+                loading="lazy"
+              />
               <span className={styles.gMarkKind}>KEY VISUAL</span>
               <span className={styles.gMarkNum}>04</span>
               <figcaption>
@@ -248,7 +267,7 @@ export default function CreativeStudio() {
               </p>
             </div>
             <Button as="link" to="/contact" variant="primary" size="lg" withArrow>
-              Start a Creative Project <ArrowUpRight size={16} />
+              Start a Creative Project
             </Button>
           </div>
         </div>

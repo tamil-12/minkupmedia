@@ -6,7 +6,6 @@ import CinemaCameraHero from "../components/hero/CinemaCameraHero";
 import CinemaIntro from "../components/hero/CinemaIntro";
 import SectionHeading from "../components/common/SectionHeading";
 import Button from "../components/common/Button";
-import WalkingMascot from "../components/common/WalkingMascot";
 import { services } from "../data/services";
 import { projects } from "../data/projects";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -221,9 +220,6 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Decorative mascot that walks across the bottom of the hero every
-            ~22 seconds. Pure SVG + CSS, respects prefers-reduced-motion. */}
-        <WalkingMascot />
       </section>
 
       {/* --------------------------------------------------- SERVICES INTRO

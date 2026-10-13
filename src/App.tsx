@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/common/WhatsAppButton";
+import ApeWalker from "./components/common/ApeWalker";
 
 const Home = lazy(() => import("./pages/Home"));
 const Work = lazy(() => import("./pages/Work"));
@@ -63,6 +64,7 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <ApeWalker />
     </>
   );
 }
