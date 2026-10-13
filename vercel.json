@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/((?!_next|assets|videos|images|logo|.*\\..*).*)", "destination": "/index.html" }
+  ]
+}

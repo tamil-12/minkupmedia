@@ -57,19 +57,9 @@
   opacity: 0.5;
 }
 
-/* No wash — the video shows at full strength. All text that needs to live
-   over the video has its own backdrop (text-shadow, white chip, or opaque
-   card). On narrow screens the component falls back to the poster-only path
-   and the content column sits on a near-opaque white sheet. */
+/* No wash — the video shows at full strength on every screen size. Text
+   that lives over the video has its own backdrop (text-shadow + opaque
+   backdrop-blur pills on the hero lede and stat chips). */
 .readability {
   display: none;
-}
-
-@media (max-width: 900px) {
-  .readability {
-    display: block;
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.55);
-  }
 }

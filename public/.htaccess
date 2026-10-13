@@ -1,0 +1,25 @@
+# SPA fallback — serve index.html for any client-side route so refreshing
+# /services, /work, /about, etc. doesn't return 404 on Apache / Hostinger /
+# cPanel style hosts.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Pass through real files and directories (JS, CSS, images, videos).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else -> index.html so React Router can take over.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Reasonable cache headers for hashed Vite assets.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:js|css|woff2?|ttf|otf|png|jpg|jpeg|gif|webp|svg|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

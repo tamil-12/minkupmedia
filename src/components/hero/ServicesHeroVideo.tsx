@@ -37,18 +37,11 @@ export default function ServicesHeroVideo({
   const [failed, setFailed] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Decide whether to even mount the video. On narrow screens we stay on the
-  // static poster — motion makes the headline harder to read on small viewports.
+  // Mount the video on every viewport (the services page is a video-first
+  // design per spec). The only skip condition left is prefers-reduced-motion
+  // — users on that setting still get the poster/gradient base.
   useEffect(() => {
-    if (reduced) {
-      setCanUseVideo(false);
-      return;
-    }
-    const mql = window.matchMedia("(min-width: 768px)");
-    const update = () => setCanUseVideo(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
+    setCanUseVideo(!reduced);
   }, [reduced]);
 
   // Attach lifecycle listeners once we have a video element.
