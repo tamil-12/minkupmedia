@@ -24,6 +24,10 @@
     padding-top: var(--header-h-sm);
   }
 
+  .card {
+    scroll-margin-top: calc(var(--header-h-sm) + 1rem);
+  }
+
   .page::before {
     inset-block-start: var(--header-h-sm);
   }
@@ -352,6 +356,9 @@
   grid-column: span 4;
   position: relative;
   min-height: 340px;
+  /* Anchor targets land under the fixed header — leave room so the card
+     isn't tucked behind the nav bar after a hash-scroll. */
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
   border: 1px solid rgba(255, 255, 255, 0.78);
   border-radius: 22px;
   background:

@@ -92,7 +92,7 @@ export default function Footer() {
             {services.map((s) => (
               <li key={s.slug}>
                 <Link
-                  to={s.linkTo ?? "/services"}
+                  to={s.linkTo ?? `/services#${s.slug}`}
                   className={styles.footerLink}
                 >
                   {s.shortTitle}

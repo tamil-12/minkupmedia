@@ -267,7 +267,7 @@ export default function Home() {
                   data-reveal-delay={Number(s.index) * 50}
                 >
                   <Link
-                    to={s.linkTo ?? "/services"}
+                    to={s.linkTo ?? `/services#${s.slug}`}
                     className={styles.svcCardLink}
                     aria-label={s.title}
                   >

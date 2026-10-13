@@ -30,9 +30,10 @@ export default function Contact() {
   const [feedback, setFeedback] = useState<string>("");
   const [errors, setErrors] = useState<Partial<Record<keyof EnquiryPayload, string>>>({});
 
-  // Pre-select the service when landing from a Services card
-  // (/contact?service=<slug>). The URL param maps to the service's shortTitle
-  // so it matches what the service <select> dropdown shows.
+  // Pre-select the service when landing from a Services card or footer link
+  // (/contact?service=<slug>). The service <select> uses `s.title` as its
+  // option values, so the pre-fill must match on `title` — using `shortTitle`
+  // would leave the dropdown empty and make the deep link feel broken.
   const location = useLocation();
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -40,7 +41,7 @@ export default function Contact() {
     if (!slug) return;
     const match = services.find((s) => s.slug === slug);
     if (match) {
-      setForm((f) => ({ ...f, service: match.shortTitle }));
+      setForm((f) => ({ ...f, service: match.title }));
     }
   }, [location.search]);
 

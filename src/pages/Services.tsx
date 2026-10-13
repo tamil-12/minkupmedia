@@ -117,7 +117,7 @@ export default function Services() {
                 return (
                   <Link
                     key={service.slug}
-                    to={service.linkTo ?? "/contact"}
+                    to={service.linkTo ?? `/services#${service.slug}`}
                     className={styles.orbitItem}
                     style={{ "--i": index } as React.CSSProperties}
                   >
@@ -212,10 +212,9 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       : styles.accentNavy;
 
   const hasDedicatedPage = Boolean(service.linkTo);
-  // Every card is clickable now. Services with a dedicated detail page link
-  // to it; services without one route to the Contact form with the service
-  // pre-selected via a URL param so the enquiry already knows the topic.
-  const href = service.linkTo ?? `/contact?service=${service.slug}`;
+  // Every card is clickable. Services with a dedicated detail page link to
+  // it; services without one anchor-scroll to their own card on /services.
+  const href = service.linkTo ?? `/services#${service.slug}`;
 
   const Body = (
     <>
@@ -252,6 +251,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
   return (
     <article
+      id={service.slug}
       className={`${styles.card} ${accentClass}`}
       data-reveal
       data-reveal-delay={Math.min(index * 55, 220)}

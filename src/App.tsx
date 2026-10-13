@@ -19,17 +19,27 @@ function ScrollToTopOnRouteChange() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) {
-      // Give the lazy-loaded page a tick to mount before we try to scroll.
+      // Retry a handful of times — the target may be inside a lazy-loaded
+      // route chunk that hasn't mounted on the first animation frame.
       const id = hash.slice(1);
-      requestAnimationFrame(() => {
+      let tries = 0;
+      let frame = 0;
+      const findAndScroll = () => {
+        tries += 1;
         const el = document.getElementById(id);
         if (el) {
           el.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+        if (tries < 20) {
+          frame = window.requestAnimationFrame(findAndScroll);
         } else {
+          // Last-ditch fallback — land the user at the top of the new page.
           window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
         }
-      });
-      return;
+      };
+      frame = window.requestAnimationFrame(findAndScroll);
+      return () => window.cancelAnimationFrame(frame);
     }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname, hash]);
