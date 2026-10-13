@@ -140,21 +140,6 @@ export default function Footer() {
             </li>
           </ul>
 
-          {siteSettings.directors.length > 0 && (
-            <div className={styles.directors}>
-              <h5 className={styles.colSubTitle}>Leadership</h5>
-              <ul className={styles.linkList}>
-                {siteSettings.directors.map((d) => (
-                  <li key={d.name} className={styles.quietLine}>
-                    <strong>{d.name}</strong>
-                    <br />
-                    <span>{d.role}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
           <div className={styles.social}>
             {siteSettings.socialLinks.map((s) => {
               const Icon = socialIcons[s.name];
@@ -175,6 +160,30 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {siteSettings.directors.length > 0 && (
+        <section className={styles.leadership} aria-label="Leadership">
+          <p className={styles.leadershipLabel}>Leadership</p>
+          <h3 className={styles.leadershipHeading}>
+            The team behind every project
+          </h3>
+          <ul className={styles.leadershipList}>
+            {siteSettings.directors.map((d) => (
+              <li key={d.name} className={styles.leaderCard}>
+                <span className={styles.leaderAvatar} aria-hidden="true">
+                  {d.name
+                    .split(" ")
+                    .map((w) => w[0])
+                    .slice(0, 2)
+                    .join("")}
+                </span>
+                <span className={styles.leaderName}>{d.name}</span>
+                <span className={styles.leaderRole}>{d.role}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className={styles.legal}>
         <span>© {year} Minkup Media Technology. All rights reserved.</span>

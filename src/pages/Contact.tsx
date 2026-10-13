@@ -1,4 +1,5 @@
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Mail, Phone, MapPin, MessageCircle, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Button from "../components/common/Button";
 import { services } from "../data/services";
@@ -28,6 +29,20 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [feedback, setFeedback] = useState<string>("");
   const [errors, setErrors] = useState<Partial<Record<keyof EnquiryPayload, string>>>({});
+
+  // Pre-select the service when landing from a Services card
+  // (/contact?service=<slug>). The URL param maps to the service's shortTitle
+  // so it matches what the service <select> dropdown shows.
+  const location = useLocation();
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const slug = params.get("service");
+    if (!slug) return;
+    const match = services.find((s) => s.slug === slug);
+    if (match) {
+      setForm((f) => ({ ...f, service: match.shortTitle }));
+    }
+  }, [location.search]);
 
   const whatsapp = useMemo(() => whatsappLink(form), [form]);
 

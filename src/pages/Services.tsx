@@ -211,7 +211,11 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       ? styles.accentOrange
       : styles.accentNavy;
 
-  const isLinked = Boolean(service.linkTo);
+  const hasDedicatedPage = Boolean(service.linkTo);
+  // Every card is clickable now. Services with a dedicated detail page link
+  // to it; services without one route to the Contact form with the service
+  // pre-selected via a URL param so the enquiry already knows the topic.
+  const href = service.linkTo ?? `/contact?service=${service.slug}`;
 
   const Body = (
     <>
@@ -237,7 +241,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
       <div className={styles.cardFoot}>
         <span className={styles.cardCta}>
-          {isLinked ? "Explore service" : "Build into your plan"}
+          {hasDedicatedPage ? "Explore service" : "Enquire about this"}
         </span>
         <span className={styles.cardArrow} aria-hidden="true">
           <ArrowUpRight size={16} strokeWidth={2.2} />
@@ -252,15 +256,9 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       data-reveal
       data-reveal-delay={Math.min(index * 55, 220)}
     >
-      {isLinked && service.linkTo ? (
-        <Link to={service.linkTo} className={styles.cardLink}>
-          {Body}
-        </Link>
-      ) : (
-        <div className={styles.cardLink} data-static="true">
-          {Body}
-        </div>
-      )}
+      <Link to={href} className={styles.cardLink}>
+        {Body}
+      </Link>
     </article>
   );
 }

@@ -36,3 +36,90 @@
     0 12px 24px -10px rgba(16, 28, 46, 0.65),
     0 0 0 1px rgba(255, 255, 255, 0.1);
 }
+
+/* Wrap for the multi-number variant — positions the popover above the FAB. */
+.wrap {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 1.5rem);
+  bottom: clamp(1rem, 2.5vw, 1.5rem);
+  z-index: 45;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+
+/* When .btn sits inside .wrap it is no longer position: fixed. */
+.wrap .btn {
+  position: static;
+  right: auto;
+  bottom: auto;
+}
+
+/* Popover menu — appears above the FAB with the two phone numbers. */
+.menu {
+  background: #ffffff;
+  border: 1px solid var(--divider-strong);
+  border-radius: 14px;
+  box-shadow:
+    0 20px 40px -18px rgba(16, 28, 46, 0.35),
+    0 2px 6px -2px rgba(16, 28, 46, 0.12);
+  padding: 0.75rem 0.75rem 0.6rem;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: pop-in 180ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menuTitle {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mk-slate);
+  margin: 0.2rem 0.4rem 0.4rem;
+  font-weight: 600;
+}
+
+.menuItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 10px;
+  color: var(--mk-navy);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: background var(--dur-sm) var(--ease-out);
+}
+
+.menuItem:hover {
+  background: rgba(37, 211, 102, 0.1);
+  color: var(--mk-navy);
+}
+
+.menuGlyph {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #25d366;
+  color: #ffffff;
+  flex-shrink: 0;
+}

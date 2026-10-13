@@ -235,22 +235,116 @@
   margin: 0 0 0.5rem;
 }
 
-.directors {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px dashed var(--divider-strong);
+/* ----- Leadership — centred full-width band below the main footer grid.
+   Each director is a flat card with a coloured initial avatar, name, and
+   role. Reads as an intentional team showcase rather than an awkward
+   extra block inside the Contact column. */
+.leadership {
+  max-width: var(--w-xl);
+  margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  padding: clamp(2rem, 4vw, 3rem) var(--pad-x);
+  text-align: center;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
 }
 
-.directors .quietLine strong {
-  color: var(--mk-navy);
+.leadershipLabel {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  font-size: 0.68rem;
+  color: var(--mk-blue);
   font-weight: 600;
-  font-size: 0.95rem;
+  margin: 0;
 }
 
-.directors .quietLine span {
-  color: var(--mk-slate);
+.leadershipHeading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  letter-spacing: -0.015em;
+  color: var(--mk-navy);
+  margin: 0.6rem 0 1.75rem;
+}
+
+.leadershipList {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.leaderCard {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.25rem 1.75rem;
+  background: #ffffff;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 24px -18px rgba(16, 28, 46, 0.3);
+  min-width: 180px;
+  transition: transform var(--dur-sm) var(--ease-out),
+    box-shadow var(--dur-sm) var(--ease-out);
+}
+
+.leaderCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -20px rgba(16, 28, 46, 0.4);
+}
+
+.leaderAvatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--mk-blue), var(--mk-orange));
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.leaderName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--mk-navy);
+  letter-spacing: -0.005em;
+}
+
+.leaderRole {
+  font-family: var(--font-sans);
   font-size: 0.82rem;
-  font-style: italic;
+  color: var(--mk-slate);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+
+@media (max-width: 540px) {
+  .leadershipList {
+    gap: 0.75rem;
+  }
+
+  .leaderCard {
+    padding: 1rem 1.25rem;
+    min-width: 150px;
+  }
+
+  .leaderAvatar {
+    width: 46px;
+    height: 46px;
+    font-size: 0.95rem;
+  }
 }
 
 .linkList {
