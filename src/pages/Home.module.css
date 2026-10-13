@@ -1,4 +1,9 @@
-/* ===== Reveal baseline is defined in global.css so all pages benefit. ===== */
+/* Reveal baseline lives in src/styles/global.css so every route picks it up. */
+
+.page {
+  background: linear-gradient(180deg, #eef8ff 0%, #ffffff 38%, #f6fbff 100%);
+  overflow: hidden;
+}
 
 /* ============================================================ HERO ===== */
 
@@ -61,11 +66,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  /* No cap here — each child controls its own measure so the headline can
-     take the width "IMPOSSIBLE TO IGNORE." needs without squeezing the lede
-     and CTAs below. */
   width: 100%;
-  max-width: 44rem;
+  /* Wider column so "IMPOSSIBLE TO IGNORE." has room to breathe without
+     ever clipping. The camera scene still gets ~45% of the viewport. */
+  max-width: 54rem;
 }
 
 .eyebrow {
@@ -108,9 +112,9 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 900;
-  /* Floor at 1.75rem so narrow phones (320–380px) keep every line on one row.
-     Grows to 3.5rem on desktop. */
-  font-size: clamp(1.75rem, 8vw, 3.5rem);
+  /* Cap pushed down so the two lines of IMPOSSIBLE TO IGNORE fit the
+     content column at every width without clipping. */
+  font-size: clamp(1.75rem, 7vw, 3.1rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
   color: var(--mk-navy);
@@ -123,28 +127,17 @@
 
 .heroLine {
   display: block;
-  overflow: hidden;
+  /* No overflow:hidden — the slide-up motion plays off natural text flow
+     without ever clipping any character. */
+  overflow: visible;
   line-height: 1;
-  /* Tiny vertical slack so letter extremes don't clip during the slide. */
   padding-block: 0.06em;
 }
 
 .heroLineInner {
   display: inline-block;
-  white-space: nowrap;
-}
-
-/* On narrow screens let lines wrap instead of clipping — the slide-up
-   motion is less important than every character being readable. */
-@media (max-width: 640px) {
-  .heroLine {
-    overflow: visible;
-  }
-
-  .heroLineInner {
-    white-space: normal;
-    display: inline;
-  }
+  /* Let the headline wrap naturally at any width if needed. */
+  white-space: normal;
 }
 
 .lineNavy {
@@ -400,49 +393,89 @@
 @media (max-width: 900px) {
   .hero {
     min-height: auto;
-    padding-bottom: 2.5rem;
-  }
-
-  .heroGrid {
-    grid-template-columns: 1fr;
-    padding-top: 0;
-    min-height: 0;
-    gap: 0;
-  }
-
-  .heroContent {
-    padding-top: clamp(1.5rem, 4vw, 2.5rem);
-    max-width: none;
+    padding-top: var(--header-h-sm);
+    padding-bottom: 2rem;
+    /* Pale sky background takes over below the camera atmosphere. */
+    background: linear-gradient(180deg, #eaf5ff 0%, #f6fbff 55%, #ffffff 100%);
   }
 
   .heroCamera {
-    position: relative;
-    inset: auto;
+    /* Camera is pinned to the TOP band of the hero only. Content flows below
+       in natural order — same visual effect as desktop (camera as atmosphere,
+       content laid in front), but stacked instead of side-by-side because
+       there isn't enough horizontal room on a phone. */
+    position: absolute;
+    inset: 0 0 auto 0;
     height: 56vw;
-    min-height: 320px;
-    max-height: 520px;
-    order: -1;
-    margin-top: 1rem;
+    min-height: 260px;
+    max-height: 420px;
+    order: 0;
+    width: auto;
+    aspect-ratio: auto;
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
   }
 
+  /* Camera fades into the sky-blue page surface at its bottom edge so the
+     headline that follows reads on a clean, calm background. */
   .heroCamera::after {
-    background: linear-gradient(180deg, transparent 55%, #eaf5ff 100%);
+    display: block;
+    background: linear-gradient(
+      180deg,
+      transparent 55%,
+      rgba(234, 245, 255, 0.75) 85%,
+      #eaf5ff 100%
+    );
+  }
+
+  .heroGrid {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    padding-inline: var(--pad-x);
+    /* Push the content column below the camera band so it reads on clean sky. */
+    padding-top: calc(56vw - 1.5rem);
+    min-height: 0;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .heroContent {
+    padding-top: 0;
+    max-width: none;
+    gap: 0.9rem;
   }
 
   .heroHeading {
-    /* Lower floor so phones under 400px still fit "WE MAKE BRANDS" on one line. */
+    /* Floor low enough so phones under 400px fit "WE MAKE BRANDS" cleanly. */
     font-size: clamp(1.9rem, 9vw, 3.4rem);
   }
 
   .heroFooter {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding-inline: var(--pad-x);
   }
 
   .scrollCue {
     align-self: flex-end;
+  }
+}
+
+@media (max-width: 900px) and (min-height: 820px) {
+  .heroCamera {
+    max-height: 460px;
+  }
+
+  .heroGrid {
+    padding-top: calc(min(56vw, 460px) - 1.5rem);
   }
 }
 
@@ -456,7 +489,272 @@
   }
 }
 
-/* ============================================================= SERVICES */
+/* ============================================================= SERVICES
+   Dark navy band — the "same content while scrolling" layout. A compact
+   seven-card lineup with icon + number + title + arrow. Contrasts the
+   bright hero and the white-ish sections above/below it. */
+
+.svcBand {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(11, 169, 224, 0.14), transparent 60%),
+    radial-gradient(700px 400px at 100% 100%, rgba(247, 71, 36, 0.1), transparent 55%),
+    linear-gradient(180deg, #0a1626 0%, #101c2e 55%, #0a1626 100%);
+  color: var(--mk-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.svcBand::before {
+  /* Soft top edge glow — stops the band reading as a hard black cut-in. */
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(11, 169, 224, 0.5), transparent);
+}
+
+.svcHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.5fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.svcHeadMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.svcEyebrow {
+  color: var(--mk-blue-300);
+}
+
+.svcEyebrow::before {
+  background: var(--mk-blue-300);
+}
+
+.svcTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--mk-white);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.svcLede {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 32rem;
+  margin: 0;
+}
+
+.svcCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--mk-white);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  transition:
+    background var(--dur-sm) var(--ease-out),
+    border-color var(--dur-sm) var(--ease-out),
+    color var(--dur-sm) var(--ease-out);
+  white-space: nowrap;
+}
+
+.svcCta:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--mk-blue-300);
+  color: var(--mk-white);
+}
+
+.svcRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1vw, 0.9rem);
+}
+
+.svcCard {
+  position: relative;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 28, 46, 0.5);
+  border: 1px solid rgba(185, 231, 255, 0.14);
+  overflow: hidden;
+  transition:
+    transform var(--dur-sm) var(--ease-out),
+    border-color var(--dur-sm) var(--ease-out),
+    background var(--dur-sm) var(--ease-out);
+  isolation: isolate;
+}
+
+.svcCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(11, 169, 224, 0.5);
+  background: rgba(16, 28, 46, 0.72);
+}
+
+.svcCardLink {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "icon  num   arrow"
+    "title title title";
+  column-gap: 0.6rem;
+  row-gap: 0.55rem;
+  padding: 0.75rem 0.75rem 0.7rem;
+  color: var(--mk-white);
+  text-decoration: none;
+  align-items: center;
+}
+
+.svcCardLink:hover {
+  color: var(--mk-white);
+}
+
+.svcCardTop {
+  display: contents;
+}
+
+.svcCardIcon {
+  grid-area: icon;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Illustrated SVG icons from Iconify — fill the chip with a subtle inset so
+   the native brand colors of the icon read without being clipped. */
+.svcCardIcon img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+}
+
+/* Accents only tint the border — the icon itself keeps its native color. */
+.svcAccentBlue .svcCardIcon {
+  background: rgba(11, 169, 224, 0.12);
+  border-color: rgba(11, 169, 224, 0.3);
+}
+
+.svcAccentOrange .svcCardIcon {
+  background: rgba(247, 71, 36, 0.1);
+  border-color: rgba(247, 71, 36, 0.3);
+}
+
+.svcAccentNavy .svcCardIcon {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.svcCardNum {
+  grid-area: num;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.14em;
+  justify-self: start;
+  padding-top: 2px;
+}
+
+.svcCardTitle {
+  grid-area: title;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--mk-white);
+}
+
+.svcCardArrow {
+  grid-area: arrow;
+  display: inline-flex;
+  color: var(--mk-blue-300);
+  opacity: 0.55;
+  transition:
+    opacity var(--dur-sm) var(--ease-out),
+    transform var(--dur-sm) var(--ease-out);
+}
+
+.svcAccentOrange .svcCardArrow {
+  color: var(--mk-orange-300);
+}
+
+.svcAccentNavy .svcCardArrow {
+  color: var(--mk-blue-300);
+}
+
+.svcCard:hover .svcCardArrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 1180px) {
+  .svcRow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .svcHead {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .svcCta {
+    justify-self: start;
+  }
+
+  .svcRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .svcRow {
+    grid-template-columns: 1fr;
+  }
+
+  .svcCardLink {
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .svcCardTop {
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .svcCardArrow {
+    margin-top: 0;
+    margin-left: auto;
+  }
+}
+
+/* ============================================================= SERVICES (legacy) */
 
 .servicesIntro {
   padding-block: clamp(5rem, 10vw, 9rem);
@@ -876,5 +1174,242 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
+  }
+}
+
+/* ======================================================== HOME REFRESH */
+
+.hero {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.86) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0 1px, transparent 1px 100%),
+    linear-gradient(135deg, #e4f5ff 0%, #ffffff 48%, #fff4ef 100%);
+  background-size: 72px 72px, 72px 72px, auto;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.66) 42%, rgba(255, 255, 255, 0.18) 72%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 65%, #ffffff 100%);
+}
+
+.heroCamera::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.7) 36%, rgba(255, 255, 255, 0.12) 72%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, transparent 25%);
+}
+
+.heroContent {
+  max-width: 46rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.heroHeading {
+  font-size: clamp(2.25rem, 6vw, 5rem);
+}
+
+.heroLede {
+  max-width: 34rem;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  padding: 0.88rem 1.3rem;
+}
+
+.ctaSecondary {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.capabilities {
+  max-width: 39rem;
+}
+
+.capability {
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.heroMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  max-width: 39rem;
+}
+
+.heroMetric {
+  min-height: 74px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: var(--mk-navy);
+  color: var(--mk-white);
+  box-shadow: 0 18px 34px -28px rgba(16, 28, 46, 0.7);
+}
+
+.heroMetric:nth-child(2) {
+  background: var(--mk-blue);
+}
+
+.heroMetric:nth-child(3) {
+  background: var(--mk-orange);
+}
+
+.heroMetric strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.heroMetric span {
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+
+.brandTicker {
+  position: relative;
+  z-index: 3;
+  width: max-content;
+  min-width: 200%;
+  display: flex;
+  gap: clamp(1.4rem, 4vw, 3rem);
+  margin-top: clamp(1.4rem, 3vw, 2.6rem);
+  padding-block: 0.8rem;
+  border-block: 1px solid rgba(16, 28, 46, 0.08);
+  background: rgba(255, 255, 255, 0.56);
+  color: rgba(16, 28, 46, 0.42);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  animation: tickerMove 32s linear infinite;
+}
+
+.brandTicker span:nth-child(3n + 1) {
+  color: rgba(11, 169, 224, 0.5);
+}
+
+.brandTicker span:nth-child(3n + 2) {
+  color: rgba(247, 71, 36, 0.45);
+}
+
+@keyframes tickerMove {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.svcBand {
+  padding-block: clamp(4rem, 7vw, 6.5rem);
+  background:
+    linear-gradient(135deg, #081524 0%, #101c2e 48%, #1d2635 100%);
+}
+
+.svcCard {
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035)),
+    rgba(16, 28, 46, 0.68);
+  box-shadow: 0 18px 45px -36px rgba(0, 0, 0, 0.75);
+}
+
+.svcCardLink {
+  min-height: 154px;
+  align-content: space-between;
+  padding: 1rem;
+}
+
+.svcCard:hover {
+  transform: translateY(-6px);
+}
+
+.workIntro {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #eef8ff 52%, #ffffff 100%);
+}
+
+.workCard {
+  border-radius: 24px;
+  box-shadow: 0 26px 60px -38px rgba(16, 28, 46, 0.7);
+}
+
+.workCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 35%, transparent 70%);
+  opacity: 0;
+  transform: translateX(-70%);
+  transition:
+    opacity var(--dur-md) var(--ease-out),
+    transform 900ms var(--ease-out);
+}
+
+.workCard:hover::after {
+  opacity: 1;
+  transform: translateX(80%);
+}
+
+.statement {
+  background:
+    linear-gradient(135deg, #0a1626 0%, #101c2e 55%, #17253a 100%);
+}
+
+.ctaBand {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fff6f2 48%, #eaf7ff 100%);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    background: linear-gradient(135deg, #eaf5ff 0%, #ffffff 60%, #fff4ef 100%);
+  }
+
+  .heroContent {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .brandTicker {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .heroMetrics {
+    grid-template-columns: 1fr;
+  }
+
+  .svcCardLink {
+    min-height: 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brandTicker {
+    animation: none;
   }
 }

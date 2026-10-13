@@ -22,12 +22,13 @@ interface Props {
  *   viewport is wide enough for a video to read well (poster-only on narrow
  *   phones, where motion would compete with the headline).
  * - Fades the video over the poster once a real frame is painted.
+ * - Plays once and holds on the final frame instead of looping.
  * - If the video errors out, the poster quietly remains.
  */
 export default function ServicesHeroVideo({
-  webmSrc = "/videos/services-background.webm",
+  webmSrc,
   mp4Src = "/videos/services-background.mp4",
-  posterSrc = "/images/services/services-background-poster.webp",
+  posterSrc,
   objectPosition = "70% center",
 }: Props) {
   const reduced = useReducedMotion();
@@ -55,11 +56,14 @@ export default function ServicesHeroVideo({
     const vid = videoRef.current;
     if (!vid) return;
     const onPlaying = () => setPlaying(true);
+    const onEnded = () => vid.pause();
     const onError = () => setFailed(true);
     vid.addEventListener("playing", onPlaying);
+    vid.addEventListener("ended", onEnded);
     vid.addEventListener("error", onError);
     return () => {
       vid.removeEventListener("playing", onPlaying);
+      vid.removeEventListener("ended", onEnded);
       vid.removeEventListener("error", onError);
     };
   }, [canUseVideo]);
@@ -71,16 +75,19 @@ export default function ServicesHeroVideo({
       {/* Base gradient — paints before anything else loads. No black flash. */}
       <div className={styles.base} />
 
-      {/* Poster always rendered. Fades under the playing video, or stays if the
-          video fails to load / isn't mounted (reduced-motion / narrow phone). */}
-      <img
-        src={posterSrc}
-        alt=""
-        className={`${styles.poster} ${showVideo && playing ? styles.posterHidden : ""}`}
-        loading="eager"
-        decoding="async"
-        style={{ objectPosition }}
-      />
+      {/* Poster is optional — rendered only when a path is provided to avoid
+          404 noise. The .base gradient always paints first so there is no
+          black flash while the video is downloading. */}
+      {posterSrc && (
+        <img
+          src={posterSrc}
+          alt=""
+          className={`${styles.poster} ${showVideo && playing ? styles.posterHidden : ""}`}
+          loading="eager"
+          decoding="async"
+          style={{ objectPosition }}
+        />
+      )}
 
       {showVideo && (
         <video
@@ -88,13 +95,12 @@ export default function ServicesHeroVideo({
           className={`${styles.video} ${playing ? styles.videoVisible : ""}`}
           autoPlay
           muted
-          loop
           playsInline
           preload="metadata"
-          poster={posterSrc}
+          {...(posterSrc ? { poster: posterSrc } : {})}
           style={{ objectPosition }}
         >
-          <source src={webmSrc} type="video/webm" />
+          {webmSrc && <source src={webmSrc} type="video/webm" />}
           <source src={mp4Src} type="video/mp4" />
         </video>
       )}

@@ -1,8 +1,10 @@
 .footer {
   position: relative;
-  margin-top: clamp(4rem, 8vw, 8rem);
+  z-index: 5;
+  margin-top: clamp(2rem, 4vw, 4rem);
   background: linear-gradient(180deg, #ffffff 0%, #ecf7ff 60%, #dff3ff 100%);
   overflow: hidden;
+  isolation: isolate;
 }
 
 .topBand {
@@ -117,24 +119,33 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  /* Snug — the wordmark sits right next to the mark, not floating away. */
+  gap: 0.6rem;
   color: var(--mk-navy);
 }
 
+/* Background-image zoom crop. The source JPEG is 1280×1280 with the
+   arrow+wordmark centered inside ~60% of the frame — background-size 180%
+   + a 42% vertical bias cuts the surrounding whitespace and shows only the
+   arrow mark portion. mix-blend-mode: multiply drops residual white into
+   the sky-blue footer surface. */
 .logoImg {
-  width: 96px;
-  height: 96px;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  mix-blend-mode: multiply;
+  display: inline-block;
   flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  background-image: url("/logo/minkup-logo.jpeg");
+  background-repeat: no-repeat;
+  background-position: center 42%;
+  background-size: 190%;
+  mix-blend-mode: multiply;
+  border-radius: 8px;
 }
 
 @media (max-width: 540px) {
   .logoImg {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -245,18 +256,22 @@
   margin-top: 0.6rem;
 }
 
-.socialPill {
-  padding: 0.4rem 0.9rem;
+.socialIcon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 999px;
   border: 1px solid var(--divider-strong);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--mk-navy);
-  transition: all var(--dur-sm) var(--ease-out);
+  transition:
+    background var(--dur-sm) var(--ease-out),
+    color var(--dur-sm) var(--ease-out),
+    border-color var(--dur-sm) var(--ease-out);
 }
 
-.socialPill:hover {
+.socialIcon:hover {
   background: var(--mk-navy);
   color: var(--mk-white);
   border-color: var(--mk-navy);

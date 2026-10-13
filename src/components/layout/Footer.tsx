@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { ArrowUpRight, Instagram, Linkedin, Youtube, Figma } from "lucide-react";
 import { primaryNav } from "../../data/navigation";
 import { services } from "../../data/services";
 import { siteSettings } from "../../data/siteSettings";
 import styles from "./Footer.module.css";
+
+const socialIcons: Record<string, LucideIcon> = {
+  Instagram,
+  LinkedIn: Linkedin,
+  YouTube: Youtube,
+  Behance: Figma,
+};
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -37,11 +45,7 @@ export default function Footer() {
             className={styles.brand}
             aria-label={`${siteSettings.companyName} — home`}
           >
-            <img
-              src={siteSettings.logoLight}
-              alt=""
-              className={styles.logoImg}
-            />
+            <span className={styles.logoImg} aria-hidden="true" />
             <span className={styles.brandText}>
               <span className={styles.brandWord}>Minkup</span>
               <span className={styles.brandSub}>Media Technology</span>
@@ -136,17 +140,22 @@ export default function Footer() {
           )}
 
           <div className={styles.social}>
-            {siteSettings.socialLinks.map((s) => (
-              <a
-                key={s.name}
-                href={s.url}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialPill}
-              >
-                {s.name}
-              </a>
-            ))}
+            {siteSettings.socialLinks.map((s) => {
+              const Icon = socialIcons[s.name];
+              return (
+                <a
+                  key={s.name}
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.socialIcon}
+                  aria-label={s.name}
+                  title={s.name}
+                >
+                  {Icon ? <Icon size={18} strokeWidth={1.8} /> : s.name}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

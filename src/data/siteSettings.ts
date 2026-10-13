@@ -55,9 +55,9 @@ export const siteSettings: SiteSettings = {
     { name: "YouTube", url: "#", handle: "@minkupmedia" },
     { name: "Behance", url: "#", handle: "/minkupmedia" },
   ],
-  contactEmailPlaceholder: "hello@minkup.media",
-  contactPhones: ["+91 73583 73599", "+91 98998 00013"],
-  contactPhonePlaceholder: "+91 73583 73599",
+  contactEmailPlaceholder: "info@minkupmedia.com",
+  contactPhones: ["+91 97899 80013"],
+  contactPhonePlaceholder: "+91 97899 80013",
   address: {
     line1: "S.F. No: 360/4 & 360/5, Keeranatham Road",
     line2: "Near KGiSL Campus, Saravanampatti",
@@ -70,7 +70,7 @@ export const siteSettings: SiteSettings = {
   addressPlaceholder:
     "Keeranatham Road, Saravanampatti, Coimbatore, Tamil Nadu 641035",
   // India + 10-digit mobile, no "+" prefix — wa.me/<this> opens WhatsApp chat.
-  whatsappNumber: env.VITE_WHATSAPP_NUMBER ?? "917358373599",
+  whatsappNumber: env.VITE_WHATSAPP_NUMBER ?? "919789980013",
   directors: [
     { name: "Ranjith Kumar M", role: "Managing Director" },
     { name: "Boopathi Raj K", role: "Managing Director" },

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import { siteSettings } from "../../data/siteSettings";
 import styles from "./VideoPlayer.module.css";
 
 interface Props {
@@ -117,16 +116,6 @@ export default function VideoPlayer({
           {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
         </button>
       </div>
-
-      {maskWatermark && (
-        <span
-          className={styles.brandMark}
-          role="img"
-          aria-label={siteSettings.companyName}
-        >
-          <img src={siteSettings.logoLight} alt="" />
-        </span>
-      )}
 
       {(title || caption) && (
         <figcaption className={styles.caption}>

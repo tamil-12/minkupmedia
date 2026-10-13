@@ -261,6 +261,16 @@ html[data-reveal-ready="true"] [data-reveal].is-visible {
   transform: translateY(0);
 }
 
+/* On narrow screens skip the entrance animation entirely — mobile users
+   should see finished layout immediately with no staggered empty space. */
+@media (max-width: 768px) {
+  html[data-reveal-ready="true"] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

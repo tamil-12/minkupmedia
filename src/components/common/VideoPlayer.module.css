@@ -8,36 +8,45 @@
   margin: 0;
 }
 
-/* Inner frame — holds the video at full frame (no crop zoom). */
 .frame {
   position: absolute;
   inset: 0;
 }
 
-/* Minkup brand plate — opt-in via `maskWatermark` prop. Positioned over the
-   bottom-right source watermark; reads as an intentional creative sign-off. */
-.brandMark {
-  position: absolute;
-  right: clamp(1rem, 2.5vw, 1.75rem);
-  bottom: clamp(1rem, 2.5vw, 1.75rem);
-  width: clamp(80px, 8vw, 110px);
-  height: clamp(80px, 8vw, 110px);
-  background: #ffffff;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  z-index: 3;
+/* Crop + mask opt-in via `maskWatermark` prop. The enlarged inner frame pushes
+   AI-generator marks off-canvas, while the soft corner plate catches any
+   frame where a mark sits further inward than expected. */
+.player.masked .frame {
+  inset: -32% -32% -32% -32%;
 }
 
+.player.masked .video {
+  object-position: center center;
+  transform: scale(1.1);
+  transform-origin: center center;
+}
+
+.player.masked::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(22%, 18rem);
+  height: min(28%, 14rem);
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 48% 42%, rgba(230, 244, 255, 0.72), transparent 46%),
+    linear-gradient(135deg, rgba(16, 28, 46, 0), rgba(16, 28, 46, 0.16));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0.9;
+  mask-image: radial-gradient(ellipse at 72% 72%, #000 0%, #000 48%, transparent 72%);
+}
+
+.brandMark,
 .brandMark img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 8%;
-  display: block;
+  display: none;
 }
 
 .video {

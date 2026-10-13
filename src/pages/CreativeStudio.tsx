@@ -123,6 +123,7 @@ export default function CreativeStudio() {
             autoPlay
             loop
             ratio="16 / 9"
+            maskWatermark
           />
 
           <ul className={styles.captions}>

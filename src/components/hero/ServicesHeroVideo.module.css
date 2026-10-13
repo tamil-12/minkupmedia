@@ -1,6 +1,14 @@
+/* Fixed, viewport-sized background. Stays locked behind content as the user
+   scrolls the Services page so every section sits on live footage, not just
+   the hero. Explicit width/height (instead of just `inset:0`) prevents some
+   Chromium versions from clipping the right edge inside flex/isolation
+   ancestors. */
 .wrap {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
@@ -13,19 +21,25 @@
   background: linear-gradient(180deg, #e6f4ff 0%, #ffffff 100%);
 }
 
+/* Aggressive crop zoom: 24% extra on every edge + object-position bias so
+   corner watermarks are off-screen in every frame while the studio desk and
+   camera remain the subject. */
 .poster,
 .video {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 148vw;
+  height: 148vh;
+  max-width: none;
+  transform: translate(-50%, -50%);
   object-fit: cover;
-  /* Default object-position is set inline so the subject stays visible. */
+  object-position: 60% 50%;
 }
 
 /* Poster fades out once the video has painted a real frame. */
 .poster {
-  opacity: 1;
+  opacity: 0.5;
   transition: opacity 420ms ease-out;
 }
 
@@ -40,37 +54,22 @@
 }
 
 .videoVisible {
-  opacity: 1;
+  opacity: 0.5;
 }
 
-/* Left-side readability wash — keeps the heading column bright and quiet.
-   Right half (where the camera / equipment lives) stays near-untouched so
-   the footage keeps its photographic detail. */
+/* No wash — the video shows at full strength. All text that needs to live
+   over the video has its own backdrop (text-shadow, white chip, or opaque
+   card). On narrow screens the component falls back to the poster-only path
+   and the content column sits on a near-opaque white sheet. */
 .readability {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.94) 0%,
-      rgba(255, 255, 255, 0.78) 22%,
-      rgba(255, 255, 255, 0.42) 42%,
-      rgba(255, 255, 255, 0.1) 60%,
-      rgba(255, 255, 255, 0) 72%
-    ),
-    linear-gradient(180deg, rgba(230, 244, 255, 0.35) 0%, transparent 30%);
+  display: none;
 }
 
-/* On tablet/mobile the content stacks, so we lighten the whole surface a
-   touch — the headline sits over whatever is behind it rather than beside. */
 @media (max-width: 900px) {
   .readability {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(255, 255, 255, 0.6) 55%,
-        rgba(255, 255, 255, 0.25) 100%
-      );
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.55);
   }
 }

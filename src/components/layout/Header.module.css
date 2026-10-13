@@ -20,6 +20,11 @@
 @media (max-width: 768px) {
   .header {
     height: var(--header-h-sm);
+    /* Opaque white on mobile so the JPEG logo's mix-blend-mode: multiply
+       drops the white band uniformly on every page (hero backgrounds, dark
+       gradients, etc. no longer leak into the blend). */
+    background: #ffffff;
+    border-bottom: 1px solid var(--divider);
   }
 }
 
@@ -28,10 +33,17 @@
   max-width: var(--w-xl);
   margin-inline: auto;
   padding-inline: var(--pad-x);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 901px) {
+  .inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
 }
 
 .brand {
@@ -54,17 +66,17 @@
   mix-blend-mode: multiply;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .logoImg {
-    width: 148px;
-    height: 50px;
+    width: 140px;
+    height: 46px;
   }
 }
 
 @media (max-width: 380px) {
   .logoImg {
-    width: 128px;
-    height: 44px;
+    width: 120px;
+    height: 40px;
   }
 }
 
@@ -167,14 +179,15 @@
 
 .menuBtn {
   display: none;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-pill);
+  border-radius: 10px;
   color: var(--mk-navy);
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--divider);
+  background: #ffffff;
+  border: 1px solid var(--divider-strong);
+  flex-shrink: 0;
 }
 
 @media (max-width: 900px) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
@@ -11,6 +11,30 @@ import { projects } from "../data/projects";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import styles from "./Home.module.css";
+
+/**
+ * Illustrated service icons loaded directly from Iconify's public CDN. Every
+ * slug below is verified in the `twemoji` set, so no broken-image fallbacks.
+ * Swap any value with another Iconify slug to change the icon.
+ */
+const homeServiceIconUrls: Record<string, string> = {
+  "social-media-marketing":
+    "https://api.iconify.design/twemoji/camera-with-flash.svg",
+  "performance-marketing":
+    "https://api.iconify.design/twemoji/chart-increasing.svg",
+  "video-editing":
+    "https://api.iconify.design/twemoji/clapper-board.svg",
+  "graphic-design":
+    "https://api.iconify.design/twemoji/artist-palette.svg",
+  seo: "https://api.iconify.design/twemoji/magnifying-glass-tilted-right.svg",
+  "influencer-marketing":
+    "https://api.iconify.design/twemoji/megaphone.svg",
+  "lead-generation":
+    "https://api.iconify.design/twemoji/direct-hit.svg",
+};
+
+const FALLBACK_ICON_URL =
+  "https://api.iconify.design/twemoji/sparkles.svg";
 
 const INTRO_SESSION_KEY = "minkup:intro-seen";
 
@@ -63,6 +87,15 @@ export default function Home() {
   const initialSkip = reduced || hasSeenIntro();
   const [heroVisible, setHeroVisible] = useState<boolean>(initialSkip);
   const [introMounted, setIntroMounted] = useState<boolean>(!initialSkip);
+
+  // Safety fuse — if the intro ever fails to call onBeginExit (video error,
+  // autoplay blocked, etc.), the hero still becomes visible so the page is
+  // never stuck with a hidden headline.
+  useEffect(() => {
+    if (heroVisible) return;
+    const t = window.setTimeout(() => setHeroVisible(true), 8500);
+    return () => window.clearTimeout(t);
+  }, [heroVisible]);
 
   const featuredProjects = projects.slice(0, 4);
 
@@ -164,6 +197,7 @@ export default function Home() {
                 </motion.div>
               ))}
             </motion.div>
+
           </div>
         </div>
 
@@ -183,47 +217,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --------------------------------------------------- SERVICES INTRO */}
-      <section id="services-intro" className={styles.servicesIntro}>
+      {/* --------------------------------------------------- SERVICES INTRO
+          Dark navy band with the full seven-service lineup as compact icon
+          cards (Iconify twemoji icons for brand-colored illustration). */}
+      <section id="services-intro" className={styles.svcBand}>
         <div className="container">
-          <div className={styles.servicesHead}>
-            <SectionHeading
-              eyebrow="WHAT WE DO"
-              indexLabel="01 / Our Craft"
-              title={
-                <>
-                  We blend <span className="text-blue">strategy</span>, creative,
-                  and <span className="text-orange">performance</span> under one
-                  roof.
-                </>
-              }
-              description="From brand systems and reel production to full-funnel paid campaigns, every service is tied back to a single measure — did it move the brand forward?"
-            />
-            <div className={styles.servicesHeadCta}>
-              <Button as="link" to="/services" variant="navy" withArrow>
-                Explore all services
-              </Button>
+          <div className={styles.svcHead}>
+            <div className={styles.svcHeadMain}>
+              <p className={`eyebrow eyebrow--contrast ${styles.svcEyebrow}`}>
+                OUR SERVICES
+              </p>
+              <h2 className={styles.svcTitle}>
+                <span>CREATIVITY WITH</span>
+                <br />
+                <span>
+                  A <span className="text-blue">CLEAR</span>{" "}
+                  <span className="text-orange">PURPOSE.</span>
+                </span>
+              </h2>
             </div>
+            <p className={styles.svcLede}>
+              Every idea has a job to do. We combine strategy, design, content,
+              and performance to help brands grow.
+            </p>
+            <Link to="/services" className={styles.svcCta}>
+              View All Services <ArrowUpRight size={16} strokeWidth={2.2} />
+            </Link>
           </div>
 
-          <ul className={styles.servicesList}>
-            {services.slice(0, 5).map((s, i) => (
-              <li
-                key={s.slug}
-                className={styles.serviceItem}
-                data-reveal
-                data-reveal-delay={i * 60}
-              >
-                <Link to={s.linkTo ?? "/services"} className={styles.serviceLink}>
-                  <span className={styles.serviceIndex}>{s.index}</span>
-                  <span className={styles.serviceTitle}>{s.title}</span>
-                  <span className={styles.serviceSummary}>{s.summary}</span>
-                  <span className={styles.serviceArrow}>
-                    <ArrowUpRight size={28} strokeWidth={1.6} />
-                  </span>
-                </Link>
-              </li>
-            ))}
+          <ul className={styles.svcRow}>
+            {services.map((s) => {
+              const iconUrl = homeServiceIconUrls[s.slug] ?? FALLBACK_ICON_URL;
+              const accent =
+                s.accent === "blue"
+                  ? styles.svcAccentBlue
+                  : s.accent === "orange"
+                  ? styles.svcAccentOrange
+                  : styles.svcAccentNavy;
+              return (
+                <li
+                  key={s.slug}
+                  className={`${styles.svcCard} ${accent}`}
+                  data-reveal
+                  data-reveal-delay={Number(s.index) * 50}
+                >
+                  <Link
+                    to={s.linkTo ?? "/services"}
+                    className={styles.svcCardLink}
+                    aria-label={s.title}
+                  >
+                    <span className={styles.svcCardTop}>
+                      <span className={styles.svcCardIcon}>
+                        <img src={iconUrl} alt="" loading="lazy" />
+                      </span>
+                      <span className={styles.svcCardNum}>{s.index}</span>
+                    </span>
+                    <span className={styles.svcCardTitle}>{s.shortTitle}</span>
+                    <span className={styles.svcCardArrow} aria-hidden="true">
+                      <ArrowUpRight size={14} strokeWidth={2} />
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
@@ -343,9 +399,12 @@ function HeroLine({
     <span className={styles.heroLine}>
       <motion.span
         className={styles.heroLineInner}
-        initial={{ y: "110%" }}
+        // Initial follows `active` so a page that renders with the hero already
+        // visible (reduced motion, repeat visitors who've seen the intro, any
+        // route hop) skips the slide-up and shows the headline immediately.
+        initial={{ y: active ? "0%" : "110%" }}
         animate={{ y: active ? "0%" : "110%" }}
-        transition={{ duration: 0.9, delay, ease: [0.2, 0.8, 0.2, 1] }}
+        transition={{ duration: 0.75, delay, ease: [0.2, 0.8, 0.2, 1] }}
       >
         {children}
       </motion.span>

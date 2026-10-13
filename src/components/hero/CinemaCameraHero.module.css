@@ -7,6 +7,12 @@
   background: transparent;
 }
 
+@media (max-width: 900px) {
+  .wrap {
+    min-height: 0;
+  }
+}
+
 .media,
 .svg {
   position: absolute;

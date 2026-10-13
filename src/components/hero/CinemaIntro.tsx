@@ -189,10 +189,6 @@ export default function CinemaIntro({
 
       {/* Subtle vignette so the last frame reads cinematic as it holds. */}
       <div className={styles.vignette} aria-hidden="true" />
-
-      <div className={styles.corner}>
-        <span className={styles.brandTag}>MINKUP · CINEMATIC INTRO</span>
-      </div>
     </motion.div>
   );
 }
