@@ -94,18 +94,62 @@ export async function submitEnquiry(payload: EnquiryPayload): Promise<EnquiryRes
   };
 }
 
-export function whatsappLink(payload?: Partial<EnquiryPayload>): string | null {
-  if (!siteSettings.whatsappNumber) return null;
-  const base = `https://wa.me/${siteSettings.whatsappNumber}`;
-  if (!payload) return base;
+function buildMessage(payload?: Partial<EnquiryPayload>): string | null {
+  if (!payload) return null;
   const parts = [
     `Hi Minkup — I'd like to talk about a project.`,
     payload.name ? `Name: ${payload.name}` : null,
     payload.businessName ? `Business: ${payload.businessName}` : null,
     payload.service ? `Service: ${payload.service}` : null,
     payload.message ? `Notes: ${payload.message}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-  return `${base}?text=${encodeURIComponent(parts)}`;
+  ].filter(Boolean);
+  return parts.join("\n");
+}
+
+/** `wa.me` only accepts digit-only phone numbers (no "+" or spaces). */
+function toDigits(phone: string): string {
+  return phone.replace(/\D+/g, "");
+}
+
+/**
+ * Legacy single-link helper — used by any caller that still assumes one
+ * number. Returns the primary (default) WhatsApp link.
+ */
+export function whatsappLink(payload?: Partial<EnquiryPayload>): string | null {
+  const links = whatsappLinks(payload);
+  return links.length > 0 ? links[0].href : null;
+}
+
+export interface WhatsAppContact {
+  phone: string; // formatted for display, e.g. "+91 97899 80013"
+  href: string; // https://wa.me/<digits>?text=<encoded>
+}
+
+/**
+ * Build a WhatsApp link for every phone number configured in siteSettings.
+ * Falls back to the single `whatsappNumber` env setting when the phones
+ * array is empty.
+ */
+export function whatsappLinks(payload?: Partial<EnquiryPayload>): WhatsAppContact[] {
+  const message = buildMessage(payload);
+  const encoded = message ? `?text=${encodeURIComponent(message)}` : "";
+
+  const phones = siteSettings.contactPhones.filter(Boolean);
+  if (phones.length > 0) {
+    return phones.map((phone) => ({
+      phone,
+      href: `https://wa.me/${toDigits(phone)}${encoded}`,
+    }));
+  }
+
+  if (siteSettings.whatsappNumber) {
+    return [
+      {
+        phone: siteSettings.whatsappNumber,
+        href: `https://wa.me/${toDigits(siteSettings.whatsappNumber)}${encoded}`,
+      },
+    ];
+  }
+
+  return [];
 }

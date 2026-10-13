@@ -118,10 +118,20 @@
   color: var(--mk-blue-700);
 }
 
+/* Vertical stack for one or more WhatsApp numbers. Each button fills the
+   sidebar width so two phones read as two equally-weighted options rather
+   than a primary and a secondary. */
+.waGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
 .waBtn {
   width: 100%;
   justify-content: center;
-  margin-top: 1.25rem;
+  margin-top: 0;
 }
 
 /* The Button component wraps its children in a single <span>; the <MessageCircle>

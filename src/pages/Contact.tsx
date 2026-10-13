@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, MessageCircle, CheckCircle2, AlertCircle, Loader2 
 import Button from "../components/common/Button";
 import { services } from "../data/services";
 import { siteSettings } from "../data/siteSettings";
-import { EnquiryPayload, submitEnquiry, whatsappLink } from "../api/enquiry";
+import { EnquiryPayload, submitEnquiry, whatsappLinks } from "../api/enquiry";
 import Seo from "../seo/Seo";
 import { breadcrumbJsonLd } from "../seo/jsonLd";
 import styles from "./Contact.module.css";
@@ -44,7 +44,7 @@ export default function Contact() {
     }
   }, [location.search]);
 
-  const whatsapp = useMemo(() => whatsappLink(form), [form]);
+  const whatsappContacts = useMemo(() => whatsappLinks(form), [form]);
 
   const validate = (): boolean => {
     const next: typeof errors = {};
@@ -175,17 +175,25 @@ export default function Contact() {
                   </li>
                 </ul>
 
-                {whatsapp && (
-                  <Button
-                    as="a"
-                    href={whatsapp}
-                    variant="primary"
-                    size="md"
-                    withArrow
-                    className={styles.waBtn}
-                  >
-                    <MessageCircle size={16} /> WhatsApp us
-                  </Button>
+                {whatsappContacts.length > 0 && (
+                  <div className={styles.waGroup}>
+                    {whatsappContacts.map((c) => (
+                      <Button
+                        key={c.href}
+                        as="a"
+                        href={c.href}
+                        variant="primary"
+                        size="md"
+                        withArrow
+                        className={styles.waBtn}
+                      >
+                        <MessageCircle size={16} />
+                        {whatsappContacts.length > 1
+                          ? `WhatsApp ${c.phone}`
+                          : "WhatsApp us"}
+                      </Button>
+                    ))}
+                  </div>
                 )}
               </div>
 

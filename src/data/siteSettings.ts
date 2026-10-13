@@ -50,7 +50,11 @@ export const siteSettings: SiteSettings = {
   logoLight: "/logo/minkup-logo.jpeg",
   logoDark: "/logo/minkup-logo.jpeg",
   socialLinks: [
-    { name: "Instagram", url: "#", handle: "@minkupmedia" },
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/minkupmedia.technology",
+      handle: "@minkupmedia.technology",
+    },
     { name: "LinkedIn", url: "#", handle: "/minkup-media" },
     { name: "YouTube", url: "#", handle: "@minkupmedia" },
     { name: "Behance", url: "#", handle: "/minkupmedia" },
