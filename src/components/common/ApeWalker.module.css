@@ -1,10 +1,12 @@
 /* Container pinned to the bottom-left of the viewport, rides every page.
    Big enough that the ape is a real character on the page, not a tiny
-   decorative icon. */
+   decorative icon. Negative `bottom` pushes the ape down so its feet
+   sit flush with the viewport edge (Lottie centres the figure inside its
+   bounding box, so without this offset the ape appears to float). */
 .wrap {
   position: fixed;
   left: -260px;
-  bottom: 0;
+  bottom: -70px;
   z-index: 44;
   width: 270px;
   height: 270px;
