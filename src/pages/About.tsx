@@ -191,13 +191,23 @@ export default function About() {
                   data-reveal
                   data-reveal-delay={Math.min(i * 60, 180)}
                 >
-                  <span className={styles.directorInitial}>
-                    {d.name
-                      .split(" ")
-                      .map((w) => w[0])
-                      .slice(0, 2)
-                      .join("")}
-                  </span>
+                  {d.photo ? (
+                    <img
+                      src={d.photo}
+                      alt={`${d.name} — ${d.role}`}
+                      className={styles.directorPhoto}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span className={styles.directorInitial}>
+                      {d.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .slice(0, 2)
+                        .join("")}
+                    </span>
+                  )}
                   <div>
                     <h3 className={styles.directorName}>{d.name}</h3>
                     <p className={styles.directorRole}>{d.role}</p>

@@ -170,13 +170,23 @@ export default function Footer() {
           <ul className={styles.leadershipList}>
             {siteSettings.directors.map((d) => (
               <li key={d.name} className={styles.leaderCard}>
-                <span className={styles.leaderAvatar} aria-hidden="true">
-                  {d.name
-                    .split(" ")
-                    .map((w) => w[0])
-                    .slice(0, 2)
-                    .join("")}
-                </span>
+                {d.photo ? (
+                  <img
+                    src={d.photo}
+                    alt={`${d.name} — ${d.role}`}
+                    className={styles.leaderPhoto}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span className={styles.leaderAvatar} aria-hidden="true">
+                    {d.name
+                      .split(" ")
+                      .map((w) => w[0])
+                      .slice(0, 2)
+                      .join("")}
+                  </span>
+                )}
                 <span className={styles.leaderName}>{d.name}</span>
                 <span className={styles.leaderRole}>{d.role}</span>
               </li>

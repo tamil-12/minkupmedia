@@ -7,6 +7,10 @@ export interface SocialLink {
 export interface Director {
   name: string;
   role: string;
+  /** Optional headshot path (e.g. `/images/leadership/ranjith-kumar-m.jpeg`).
+   *  When present the footer leadership card renders the photo; when absent
+   *  it falls back to a gradient initial avatar. */
+  photo?: string;
 }
 
 export interface CompanyAddress {
@@ -76,8 +80,16 @@ export const siteSettings: SiteSettings = {
   // India + 10-digit mobile, no "+" prefix — wa.me/<this> opens WhatsApp chat.
   whatsappNumber: env.VITE_WHATSAPP_NUMBER ?? "919789980013",
   directors: [
-    { name: "Ranjith Kumar M", role: "Managing Director" },
-    { name: "Boopathi Raj K", role: "Managing Director" },
+    {
+      name: "Ranjith Kumar M",
+      role: "Managing Director",
+      photo: "/images/leadership/ranjith-kumar-m.jpeg",
+    },
+    {
+      name: "Boopathi Raj K",
+      role: "Managing Director",
+      photo: "/images/leadership/boopathi-raj-k.jpeg",
+    },
   ],
   googleFormsEndpoint: env.VITE_GOOGLE_FORMS_ENDPOINT ?? "",
   apiBaseUrl: env.VITE_API_BASE_URL ?? "",

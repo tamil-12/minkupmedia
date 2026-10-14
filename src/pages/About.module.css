@@ -351,24 +351,32 @@
 .directorList {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .directorCard {
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 1.1rem;
+  grid-template-columns: 128px 1fr;
+  gap: 1.75rem;
   align-items: center;
-  padding: 1.4rem 1.6rem;
+  padding: 1.75rem 2rem;
   background: var(--mk-white);
   border: 1px solid var(--divider);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
 
+@media (max-width: 540px) {
+  .directorCard {
+    grid-template-columns: 88px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem 1.4rem;
+  }
+}
+
 .directorInitial {
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -377,7 +385,7 @@
   color: var(--mk-white);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 2.1rem;
   letter-spacing: 0.08em;
 }
 
@@ -385,20 +393,53 @@
   background: linear-gradient(135deg, var(--mk-orange) 0%, var(--mk-orange-700) 100%);
 }
 
+/* Headshot — same 64px footprint as the initial avatar so swapping between
+   the two never shifts the surrounding layout. Thin brand ring. */
+.directorPhoto {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 3px var(--mk-white),
+    0 0 0 6px rgba(11, 169, 224, 0.55),
+    0 16px 32px -18px rgba(16, 28, 46, 0.45);
+}
+
+.directorCard:nth-child(2) .directorPhoto {
+  box-shadow:
+    0 0 0 3px var(--mk-white),
+    0 0 0 6px rgba(247, 71, 36, 0.55),
+    0 16px 32px -18px rgba(16, 28, 46, 0.45);
+}
+
+@media (max-width: 540px) {
+  .directorInitial,
+  .directorPhoto {
+    width: 88px;
+    height: 88px;
+    font-size: 1.5rem;
+  }
+}
+
 .directorName {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
   color: var(--mk-navy);
   letter-spacing: -0.015em;
   line-height: 1.1;
 }
 
 .directorRole {
-  margin-top: 0.2rem;
+  margin-top: 0.35rem;
   color: var(--mk-slate);
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .officeCard {
