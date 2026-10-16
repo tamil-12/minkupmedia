@@ -18,6 +18,9 @@ export interface Project {
   layout: ProjectLayout;
   accent: "blue" | "orange" | "navy";
   cover: string;
+  /** Optional CSS `object-position` for the cover image — tune per project
+   *  so landscape subjects aren't centre-cropped into oblivion. */
+  coverPosition?: string;
   thumb?: string;
   deliverables: string[];
   services: string[];
@@ -89,6 +92,48 @@ export const projects: Project[] = [
       "Digital campaign design",
     ],
     services: ["Social Media", "Video", "Creative Content"],
+  },
+  {
+    slug: "rs-automotive",
+    title: "RS Automotive — Built For The Drive",
+    client: "RS Automotive · Race Course, Coimbatore",
+    category: "creative",
+    categoryLabel: "Automotive · Creative Content",
+    summary:
+      "A premium automotive visual direction for a Coimbatore car-accessories destination — refined interiors, alloy wheels, in-car tech, and lifestyle visuals that make every upgrade feel aspirational.",
+    year: "2025",
+    layout: "wide",
+    accent: "navy",
+    cover: "/images/work/rs-automotive.webp",
+    coverPosition: "center 42%",
+    deliverables: [
+      "Automotive creative direction",
+      "Product & accessory photography",
+      "Promotional campaign visuals",
+      "Social media content system",
+    ],
+    services: ["Creative Content", "Social Media", "Branding"],
+  },
+  {
+    slug: "hotel-sri-annamaghil",
+    title: "Hotel Sri Annamaghil — A Warm South Indian Welcome",
+    client: "Hotel Sri Annamaghil · Tamil Nadu",
+    category: "branding",
+    categoryLabel: "Restaurant Branding · Food Photography",
+    summary:
+      "A restaurant-focused visual identity for a vegetarian dining destination — appetising South Indian food imagery, warm ambience, and digital content that mirrors the hospitality of the room.",
+    year: "2025",
+    layout: "square",
+    accent: "orange",
+    cover: "/images/work/hotel-sri-annamaghil.webp",
+    coverPosition: "center 28%",
+    deliverables: [
+      "Restaurant branding & visual identity",
+      "Food photography & creative visuals",
+      "Social media content design",
+      "Promotional campaign creatives",
+    ],
+    services: ["Branding", "Social Media", "Creative Content"],
   },
 
   // ----- Supporting case studies — all India-based clients.

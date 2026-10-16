@@ -130,6 +130,7 @@ function ProjectTile({ project, index }: { project: Project; index: number }) {
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
           fetchPriority={index === 0 ? "high" : "auto"}
+          style={project.coverPosition ? { objectPosition: project.coverPosition } : undefined}
         />
       </div>
       <div className={styles.meta}>

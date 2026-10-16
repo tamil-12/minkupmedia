@@ -328,6 +328,7 @@ export default function Home() {
                     height={900}
                     loading="lazy"
                     decoding="async"
+                    style={p.coverPosition ? { objectPosition: p.coverPosition } : undefined}
                   />
                 </div>
                 <div className={styles.workMeta}>
